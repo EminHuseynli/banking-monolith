@@ -3,6 +3,8 @@ package com.banking.banking_monolith.transaction;
 import com.banking.banking_monolith.account.Account;
 import com.banking.banking_monolith.account.AccountRepository;
 import com.banking.banking_monolith.account.AccountService;
+import com.banking.banking_monolith.account.AccountStatus;
+import com.banking.banking_monolith.exception.AccountNotActiveException;
 import com.banking.banking_monolith.exception.InsufficientFundsException;
 import com.banking.banking_monolith.exception.ResourceNotFoundException;
 import com.banking.banking_monolith.notification.NotificationService;
@@ -82,18 +84,33 @@ public class TransactionService {
     }
 
     // Moves money between two accounts - only the owner of the source account can initiate a transfer
-    // Both balance changes happen in a single transaction so they either both succeed or both fail
+    // Both balance changes happen in a single transaction so they either both succeed or both fail.
+    // Accounts are locked in ascending ID order to prevent deadlock on concurrent A→B / B→A transfers.
     @Transactional
     public TransactionResponse transfer(TransferRequest request, Long userId) {
-        Account sourceAccount = accountService.getActiveAccount(request.getSourceAccountId());
+        Long srcId = request.getSourceAccountId();
+        Long tgtId = request.getTargetAccountId();
 
-        // Ensure the logged-in user owns the source account
+        Long loId = Math.min(srcId, tgtId);
+        Long hiId = Math.max(srcId, tgtId);
+
+        Account loAccount = accountRepository.findByIdWithLock(loId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found: " + loId));
+        Account hiAccount = accountRepository.findByIdWithLock(hiId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found: " + hiId));
+
+        Account sourceAccount = srcId.equals(loId) ? loAccount : hiAccount;
+        Account targetAccount = srcId.equals(loId) ? hiAccount : loAccount;
+
         if (!sourceAccount.getUser().getId().equals(userId)) {
             throw new ResourceNotFoundException("Account not found for this user");
         }
-
-        Account targetAccount = accountService.getActiveAccount(request.getTargetAccountId());
-
+        if (sourceAccount.getStatus() != AccountStatus.ACTIVE) {
+            throw new AccountNotActiveException("Account is not active: " + sourceAccount.getId());
+        }
+        if (targetAccount.getStatus() != AccountStatus.ACTIVE) {
+            throw new AccountNotActiveException("Account is not active: " + targetAccount.getId());
+        }
         if (sourceAccount.getBalance().compareTo(request.getAmount()) < 0) {
             throw new InsufficientFundsException("Insufficient funds");
         }

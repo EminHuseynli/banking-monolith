@@ -34,7 +34,8 @@ public class SecurityConfig {
                 // Public endpoints - no token required
                 .requestMatchers("/api/auth/**", "/api/users/register",
                         "/swagger-ui/**", "/swagger-ui.html", "/api-docs/**",
-                        "/actuator/**").permitAll()
+                        "/actuator/**", "/", "/app.html", "/favicon.ico",
+                        "/css/**", "/js/**").permitAll()
                 // All other endpoints require a valid JWT token
                 .anyRequest().authenticated()
             )

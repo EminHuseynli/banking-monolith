@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EminBank — Online Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toasts"></div>
+
+<!-- ══════════════════════════════════════════
+     AUTH SCREEN
+══════════════════════════════════════════ -->
+<div id="auth-screen">
+  <!-- Hero -->
+  <div class="auth-hero">
+    <div class="hero-logo">
+      <div class="hero-logo-icon">🏦</div>
+      <span>EminBank</span>
+    </div>
+    <div class="hero-tagline">
+      <h1>Banking made<br><em>effortlessly</em><br>modern.</h1>
+      <p>Manage accounts, send money, and track your finances — all in one secure place.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <h3>256-bit</h3><p>AES Encryption</p>
+      </div>
+      <div class="hero-stat">
+        <h3>24/7</h3><p>Monitoring</p>
+      </div>
+      <div class="hero-stat">
+        <h3>JWT</h3><p>Auth Standard</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Side -->
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <div class="auth-tabs">
+        <div class="auth-tab active" onclick="showAuthTab('login')">Sign In</div>
+        <div class="auth-tab" onclick="showAuthTab('register')">Create Account</div>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="login-form">
+        <h2>Welcome back</h2>
+        <p class="subtitle">Sign in to access your account</p>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary" onclick="doLogin(this)">Sign In</button>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="register-form" style="display:none">
+        <h2>Open an account</h2>
+        <p class="subtitle">Start your journey with EminBank</p>
+        <div class="form-row">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" id="reg-firstName" placeholder="John">
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" id="reg-lastName" placeholder="Doe">
+          </div>
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="reg-email" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label>Password <span style="color:var(--muted);font-weight:400">(min 6 chars)</span></label>
+          <input type="password" id="reg-password" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary" onclick="doRegister(this)">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     APP SCREEN
+══════════════════════════════════════════ -->
+<div id="app-screen">
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">🏦</div>
+        <span>EminBank</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <div class="nav-item active" onclick="showPage('overview')">
+          <span class="nav-icon">◻</span> Overview
+        </div>
+        <div class="nav-item" onclick="showPage('accounts')">
+          <span class="nav-icon">💳</span> Accounts
+        </div>
+        <div class="nav-item" onclick="showPage('transactions')">
+          <span class="nav-icon">↕</span> Transactions
+        </div>
+        <div class="nav-section-title">Activity</div>
+        <div class="nav-item" onclick="showPage('notifications')" id="notif-nav">
+          <span class="nav-icon">🔔</span> Notifications
+          <span class="nav-badge" id="notif-badge" style="display:none">0</span>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-chip">
+          <div class="user-avatar" id="user-avatar">?</div>
+          <div class="user-info">
+            <div class="name"  id="user-name-display">—</div>
+            <div class="email" id="user-email-display">—</div>
+          </div>
+          <button class="logout-btn" onclick="doLogout()" title="Logout">⏻</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- ── OVERVIEW PAGE ── -->
+      <div class="page active" id="page-overview">
+        <div class="page-header">
+          <h1 id="welcome-msg">Good morning</h1>
+          <p>Here's what's happening with your finances today.</p>
+        </div>
+
+        <div class="balance-summary">
+          <div class="bs-label">Total Balance</div>
+          <div class="bs-amount" id="total-balance">$0.00</div>
+          <div class="bs-sub"    id="total-accounts-label">Across 0 accounts</div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="quick-action-btn" onclick="showPage('transactions');setTxTab('deposit')">
+            <span class="qa-icon">⬇</span> Deposit
+          </button>
+          <button class="quick-action-btn" onclick="showPage('transactions');setTxTab('withdraw')">
+            <span class="qa-icon">⬆</span> Withdraw
+          </button>
+          <button class="quick-action-btn" onclick="showPage('transactions');setTxTab('transfer')">
+            <span class="qa-icon">⇄</span> Transfer
+          </button>
+          <button class="quick-action-btn" onclick="showPage('accounts')">
+            <span class="qa-icon">➕</span> New Account
+          </button>
+        </div>
+
+        <div class="overview-grid">
+          <div class="card">
+            <div class="card-title">📋 Recent Transactions</div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-tx-body">
+                  <tr><td colspan="4"><div class="empty-state" style="padding:32px"><div class="icon">📭</div><p>No transactions yet</p></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">💳 Your Accounts</div>
+            <div id="overview-account-list">
+              <div class="empty-state" style="padding:24px">
+                <div class="icon">🏦</div>
+                <p>No accounts yet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ACCOUNTS PAGE ── -->
+      <div class="page" id="page-accounts">
+        <div class="page-header">
+          <h1>Accounts</h1>
+          <p>Manage your checking and savings accounts.</p>
+        </div>
+        <div class="accounts-grid" id="accounts-grid"></div>
+      </div>
+
+      <!-- ── TRANSACTIONS PAGE ── -->
+      <div class="page" id="page-transactions">
+        <div class="page-header">
+          <h1>Transactions</h1>
+          <p>Deposit, withdraw, transfer, and view history.</p>
+        </div>
+
+        <div class="tx-tabs">
+          <div class="tx-tab active" id="tab-deposit"  onclick="setTxTab('deposit')">⬇ Deposit</div>
+          <div class="tx-tab"        id="tab-withdraw" onclick="setTxTab('withdraw')">⬆ Withdraw</div>
+          <div class="tx-tab"        id="tab-transfer" onclick="setTxTab('transfer')">⇄ Transfer</div>
+          <div class="tx-tab"        id="tab-history"  onclick="setTxTab('history')">📋 History</div>
+        </div>
+
+        <!-- Deposit -->
+        <div id="tx-deposit">
+          <div class="tx-grid">
+            <div class="card tx-form-card">
+              <div class="card-title">⬇ Deposit Funds</div>
+              <div class="field">
+                <label>Account</label>
+                <select id="dep-account"></select>
+              </div>
+              <div class="field">
+                <label>Amount ($)</label>
+                <input type="number" id="dep-amount" placeholder="0.00" min="0.01" step="0.01">
+              </div>
+              <div class="field">
+                <label>Description <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+                <input type="text" id="dep-desc" placeholder="Salary, refund…">
+              </div>
+              <button class="btn btn-primary" onclick="doDeposit(this)">Confirm Deposit</button>
+            </div>
+            <div class="card">
+              <div class="card-title">ℹ About Deposits</div>
+              <p style="font-size:14px;color:var(--muted);line-height:1.8">
+                Deposits are credited to your account immediately and will appear in your transaction history.
+                There are no fees for deposits. You can deposit to any of your active accounts.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Withdraw -->
+        <div id="tx-withdraw" style="display:none">
+          <div class="tx-grid">
+            <div class="card tx-form-card">
+              <div class="card-title">⬆ Withdraw Funds</div>
+              <div class="field">
+                <label>Account</label>
+                <select id="wd-account"></select>
+              </div>
+              <div class="field">
+                <label>Amount ($)</label>
+                <input type="number" id="wd-amount" placeholder="0.00" min="0.01" step="0.01">
+              </div>
+              <div class="field">
+                <label>Description <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+                <input type="text" id="wd-desc" placeholder="Bills, shopping…">
+              </div>
+              <button class="btn btn-primary" onclick="doWithdraw(this)">Confirm Withdrawal</button>
+            </div>
+            <div class="card">
+              <div class="card-title">ℹ About Withdrawals</div>
+              <p style="font-size:14px;color:var(--muted);line-height:1.8">
+                Withdrawals are processed instantly. Ensure you have sufficient balance before initiating.
+                Withdrawal requests that exceed your balance will be declined automatically.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transfer -->
+        <div id="tx-transfer" style="display:none">
+          <div class="tx-grid">
+            <div class="card tx-form-card">
+              <div class="card-title">⇄ Transfer Funds</div>
+              <div class="field">
+                <label>From Account</label>
+                <select id="tr-from"></select>
+              </div>
+              <div class="field">
+                <label>To Account ID</label>
+                <input type="number" id="tr-to" placeholder="Enter target account ID">
+              </div>
+              <div class="field">
+                <label>Amount ($)</label>
+                <input type="number" id="tr-amount" placeholder="0.00" min="0.01" step="0.01">
+              </div>
+              <div class="field">
+                <label>Description <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+                <input type="text" id="tr-desc" placeholder="Rent, split bill…">
+              </div>
+              <button class="btn btn-primary" onclick="doTransfer(this)">Confirm Transfer</button>
+            </div>
+            <div class="card">
+              <div class="card-title">ℹ About Transfers</div>
+              <p style="font-size:14px;color:var(--muted);line-height:1.8">
+                Transfers between accounts are instant. You need the target account's ID to proceed.
+                You can find account IDs in the Accounts section. Transfers are irreversible once confirmed.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div id="tx-history" style="display:none">
+          <div class="card">
+            <div class="card-title">📋 Transaction History</div>
+            <div class="history-toolbar">
+              <select id="hist-account" onchange="loadHistory()">
+                <option value="">Select account…</option>
+              </select>
+              <input type="datetime-local" id="hist-start" oninput="loadHistory()">
+              <input type="datetime-local" id="hist-end"   oninput="loadHistory()">
+              <button class="btn btn-outline btn-sm" onclick="clearHistoryFilter()">Clear Filter</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="history-tbody">
+                  <tr><td colspan="6"><div class="empty-state" style="padding:32px"><div class="icon">📂</div><p>Select an account to view history</p></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NOTIFICATIONS PAGE ── -->
+      <div class="page" id="page-notifications">
+        <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <h1>Notifications</h1>
+            <p>Stay updated on your account activity.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="loadNotifications()">↻ Refresh</button>
+        </div>
+        <div class="notif-list" id="notif-list">
+          <div class="empty-state">
+            <div class="icon">🔔</div>
+            <h3>All caught up!</h3>
+            <p>No notifications to show.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- CREATE ACCOUNT MODAL -->
+<div class="modal-overlay" id="modal-create-account">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Open New Account</h3>
+      <button class="modal-close" onclick="closeModal('modal-create-account')">✕</button>
+    </div>
+    <div class="field">
+      <label>Account Type</label>
+      <select id="new-account-type">
+        <option value="CHECKING">Checking Account</option>
+        <option value="SAVINGS">Savings Account</option>
+      </select>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6">
+      <strong>Checking:</strong> Everyday transactions, debit card access, no minimum balance.<br>
+      <strong>Savings:</strong> Earn interest on deposits, limited withdrawals per month.
+    </p>
+    <button class="btn btn-primary" onclick="doCreateAccount(this)">Open Account</button>
+  </div>
+</div>
+
+<!-- CLOSE ACCOUNT MODAL -->
+<div class="modal-overlay" id="modal-close-account">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Close Account</h3>
+      <button class="modal-close" onclick="closeModal('modal-close-account')">✕</button>
+    </div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6">
+      Are you sure you want to close account <strong id="close-account-id-label">#—</strong>?
+      This action cannot be undone. Make sure to transfer any remaining balance before closing.
+    </p>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-close-account')">Cancel</button>
+      <button class="btn btn-danger"  style="flex:1" onclick="doCloseAccount(this)">Close Account</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
                 .build();
 
         User saved = userRepository.save(user);
-        notificationService.createNotification(saved, "Hoş geldiniz! Hesabınız başarıyla oluşturuldu.", NotificationType.SYSTEM);
+        notificationService.createNotification(saved, "Welcome! Your account has been successfully created.", NotificationType.SYSTEM);
 
         return toResponse(saved);
     }
