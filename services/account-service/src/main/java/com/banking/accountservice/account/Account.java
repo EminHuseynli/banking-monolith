@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 // No @ManyToOne User join — account-service stores only userId (Token Relay pattern:
 // user identity comes from the X-User-Id header forwarded by the api-gateway).
 @Entity
-@Table(name = "accounts")
+@Table(name = "accounts", schema = "account_schema")
 @Getter
 @Setter
 @NoArgsConstructor

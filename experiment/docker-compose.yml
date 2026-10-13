@@ -13,6 +13,8 @@ services:
       POSTGRES_PASSWORD: "1234"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      # Schema-per-service (thesis §3.2); runs only on an empty volume
+      - ./sql/init-schemas.sql:/docker-entrypoint-initdb.d/init-schemas.sql:ro
 
   monolith:
     build: ..
