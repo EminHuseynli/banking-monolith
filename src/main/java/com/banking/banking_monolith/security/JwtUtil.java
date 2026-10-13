@@ -1,5 +1,6 @@
 package com.banking.banking_monolith.security;
 
+import com.banking.banking_monolith.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -29,9 +30,11 @@ public class JwtUtil {
     }
 
     // Generates a JWT token with the user's email as the subject
+    // The userId claim lets the api-gateway set X-User-Id for account-service (strangler step)
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .subject(userDetails.getUsername())
+                .claim("userId", userDetails instanceof User user ? user.getId() : null)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey())
