@@ -7,6 +7,27 @@
   > The goal was never to keep it a monolith. The goal was to **understand the system deeply before splitting it**, and to have concrete numbers to compare against after the split.
 
 
+## Rollback-Loss Experiment
+
+**Question:** when a module has been extracted into a microservice and traffic is rolled back to the monolith with blue-green switching, are the writes made on the microservice silently lost?
+
+The account module is extracted into `account-service`, and Nginx switches `/api/accounts` between the monolith and the service. Each condition runs once manually (with screenshots) and three times automatically.
+
+| Condition | Database | Writes on the service before rollback | Result |
+|---|---|---|---|
+| **C0** (control) | shared schema (`public.accounts`) | yes | **4/4 runs: all 3 service-era writes visible after rollback.** Exit code 0, health UP, Prometheus up, no new ERROR/WARN lines, no 5xx. |
+| C1a | separate schema (`account_schema`), data copied at cut-over | no | pending |
+| C1b | separate schema (`account_schema`), data copied at cut-over | yes | pending |
+
+With a shared schema the switch is safe in both directions. C1a and C1b repeat the same rollback after the database separation.
+
+<img alt="C0: after rollback to the monolith, all service-era writes are visible and all signals are green" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C0-run1/images/4-after-rollback.png?raw=true" />
+
+**→ Full method, reconstruction notes, screenshots and raw results: [experiment/README.md](https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/README.md)** on the [`experiment/rollback-loss`](https://github.com/EminHuseynli/banking-monolith/tree/experiment/rollback-loss) branch.
+
+> The experiment runs on a reconstruction of the thesis stage where the monolith and the extracted service ran side by side. It uses the monolith at `6c68e98` (the version that coexisted with the services), not the later code on `main`. Everything below this section describes `main`.
+
+
 ## Overview
 
 Users register and log in. Authentication is **JWT-based**; the token carries the user identity through every request. Once authenticated, a user can open a checking or savings account. They can have multiple accounts. Each account has a balance, and only active accounts can be used for transactions. From there, three core operations are available. A user can deposit money into an account, increasing the balance. They can withdraw, which checks whether the balance is sufficient and rejects the request if not. And they can transfer between accounts, money leaves one and arrives in the other atomically, both changes happen in a single database transaction, so there is no state where one side is updated and the other is not. To prevent race conditions under concurrent load, the source account is fetched with a pessimistic write lock before any balance is touched.                                                                                                                             
