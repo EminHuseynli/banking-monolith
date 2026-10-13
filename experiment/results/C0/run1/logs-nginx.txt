@@ -1,0 +1,120 @@
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:06 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: signal 1 (SIGHUP) received from 45, reconfiguring
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: reconfiguring
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: using the "epoll" event method
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: start worker processes
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: start worker process 51
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: start worker process 52
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: start worker process 53
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: start worker process 54
+nginx-1  | 2026/10/13 19:16:07 [notice] 44#44: gracefully shutting down
+nginx-1  | 2026/10/13 19:16:07 [notice] 41#41: gracefully shutting down
+nginx-1  | 2026/10/13 19:16:07 [notice] 43#43: gracefully shutting down
+nginx-1  | 2026/10/13 19:16:07 [notice] 44#44: exiting
+nginx-1  | 2026/10/13 19:16:07 [notice] 43#43: exiting
+nginx-1  | 2026/10/13 19:16:07 [notice] 44#44: exit
+nginx-1  | 2026/10/13 19:16:07 [notice] 43#43: exit
+nginx-1  | 2026/10/13 19:16:07 [notice] 41#41: exiting
+nginx-1  | 2026/10/13 19:16:07 [notice] 41#41: exit
+nginx-1  | 2026/10/13 19:16:07 [notice] 42#42: gracefully shutting down
+nginx-1  | 2026/10/13 19:16:07 [notice] 42#42: exiting
+nginx-1  | 2026/10/13 19:16:07 [notice] 42#42: exit
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: signal 17 (SIGCHLD) received from 44
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: worker process 43 exited with code 0
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: worker process 44 exited with code 0
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: signal 17 (SIGCHLD) received from 41
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: worker process 41 exited with code 0
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: signal 17 (SIGCHLD) received from 42
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: worker process 42 exited with code 0
+nginx-1  | 2026/10/13 19:16:07 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:11 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:17 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "GET /api/accounts HTTP/1.1" 200 565 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "GET /api/accounts HTTP/1.1" 200 565 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "GET /api/accounts HTTP/1.1" 200 382 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "GET /api/accounts/7/balance HTTP/1.1" 200 193 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "POST /api/transactions/deposit HTTP/1.1" 400 105 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "POST /api/accounts HTTP/1.1" 201 191 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "POST /api/transactions/deposit HTTP/1.1" 201 214 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "GET /api/accounts HTTP/1.1" 200 565 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "GET /api/accounts HTTP/1.1" 200 749 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:16:17 +0000] "GET /api/accounts HTTP/1.1" 200 382 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:22 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:26 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:31 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:36 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:40 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:44 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:48 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:52 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:16:56 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:00 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:04 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:09 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:13 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:17 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:21 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:25 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:29 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:33 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:37 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:41 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:45 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:49 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:53 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:17:57 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:01 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:08 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:13 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:17 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:21 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:25 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:29 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:34 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:37 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:41 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:45 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:49 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:54 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:18:58 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:02 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:06 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:11 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:15 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:19 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:23 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:28 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:32 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:36 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:41 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:45 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:49 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:53 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:19:57 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:02 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:06 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:10 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:13 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:18 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:22 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:26 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:30 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:35 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:39 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:43 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:47 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:51 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:55 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:20:59 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:21:03 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:21:07 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:21:11 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:21:15 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:21:19 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1  | 172.18.0.8 - - [13/Oct/2026:19:21:21 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.1 - - [13/Oct/2026:19:21:24 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"

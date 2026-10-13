@@ -1,0 +1,23 @@
+ id | account_number | account_type | balance  |         created_at         | status | user_id 
+----+----------------+--------------+----------+----------------------------+--------+---------
+  1 | ACC-000001     | CHECKING     | 700.0000 | 2026-10-13 18:30:24.554045 | ACTIVE |       1
+  2 | ACC-000002     | SAVINGS      |   0.0000 | 2026-10-13 18:30:24.736391 | ACTIVE |       1
+  3 | ACC-000003     | CHECKING     | 700.0000 | 2026-10-13 18:30:24.807684 | ACTIVE |       2
+  4 | ACC-000004     | SAVINGS      |   0.0000 | 2026-10-13 18:30:24.882854 | ACTIVE |       2
+  5 | ACC-000005     | CHECKING     | 250.0000 | 2026-10-13 18:30:24.948336 | ACTIVE |       3
+  6 | ACC-000006     | SAVINGS      |   0.0000 | 2026-10-13 18:30:25.026151 | CLOSED |       3
+  7 | ACC-000007     | SAVINGS      |   5.0000 | 2026-10-13 18:44:39.076054 | ACTIVE |       1
+  8 | ACC-000008     | CHECKING     |   0.0000 | 2026-10-13 18:44:39.372061 | ACTIVE |       2
+  9 | ACC-000009     | CHECKING     |   0.0000 | 2026-10-13 18:55:53.04045  | ACTIVE |       2
+(9 rows)
+
+ id | transaction_type |  amount   |        description        | source_account_id | target_account_id 
+----+------------------+-----------+---------------------------+-------------------+-------------------
+  1 | DEPOSIT          | 1000.0000 | seed                      |                 1 |                  
+  2 | DEPOSIT          |  500.0000 | seed                      |                 3 |                  
+  3 | DEPOSIT          |  250.0000 | seed                      |                 5 |                  
+  4 | WITHDRAWAL       |  100.0000 | seed                      |                 1 |                  
+  5 | TRANSFER         |  200.0000 | seed                      |                 1 |                 3
+  6 | DEPOSIT          |    5.0000 | deposit by service-era id |                 7 |                  
+(6 rows)
+

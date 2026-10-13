@@ -1,0 +1,465 @@
+db-1  | The files belonging to this database system will be owned by user "postgres".
+db-1  | This user must also own the server process.
+db-1  | 
+db-1  | The database cluster will be initialized with locale "en_US.utf8".
+db-1  | The default database encoding has accordingly been set to "UTF8".
+db-1  | The default text search configuration will be set to "english".
+db-1  | 
+db-1  | Data page checksums are disabled.
+db-1  | 
+db-1  | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+db-1  | creating subdirectories ... ok
+db-1  | selecting dynamic shared memory implementation ... posix
+db-1  | selecting default "max_connections" ... 100
+db-1  | selecting default "shared_buffers" ... 128MB
+db-1  | selecting default time zone ... Etc/UTC
+db-1  | creating configuration files ... ok
+db-1  | running bootstrap script ... ok
+db-1  | performing post-bootstrap initialization ... ok
+db-1  | syncing data to disk ... ok
+db-1  | 
+db-1  | initdb: warning: enabling "trust" authentication for local connections
+db-1  | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+db-1  | 
+db-1  | Success. You can now start the database server using:
+db-1  | 
+db-1  |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+db-1  | 
+db-1  | waiting for server to start....2026-10-13 19:21:50.751 UTC [60] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+db-1  | 2026-10-13 19:21:50.758 UTC [60] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-10-13 19:21:50.774 UTC [63] LOG:  database system was shut down at 2026-10-13 19:21:50 UTC
+db-1  | 2026-10-13 19:21:50.790 UTC [60] LOG:  database system is ready to accept connections
+db-1  |  done
+db-1  | server started
+db-1  | CREATE DATABASE
+db-1  | 
+db-1  | 
+db-1  | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+db-1  | 
+db-1  | waiting for server to shut down...2026-10-13 19:21:51.381 UTC [60] LOG:  received fast shutdown request
+db-1  | .2026-10-13 19:21:51.386 UTC [60] LOG:  aborting any active transactions
+db-1  | 2026-10-13 19:21:51.389 UTC [60] LOG:  background worker "logical replication launcher" (PID 66) exited with exit code 1
+db-1  | 2026-10-13 19:21:51.393 UTC [61] LOG:  shutting down
+db-1  | 2026-10-13 19:21:51.396 UTC [61] LOG:  checkpoint starting: shutdown immediate
+db-1  | 2026-10-13 19:21:51.690 UTC [61] LOG:  checkpoint complete: wrote 925 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.168 s, sync=0.092 s, total=0.298 s; sync files=301, longest=0.006 s, average=0.001 s; distance=4256 kB, estimate=4256 kB; lsn=0/19179B0, redo lsn=0/19179B0
+db-1  | 2026-10-13 19:21:51.706 UTC [60] LOG:  database system is shut down
+db-1  |  done
+db-1  | server stopped
+db-1  | 
+db-1  | PostgreSQL init process complete; ready for start up.
+db-1  | 
+db-1  | 2026-10-13 19:21:51.904 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+db-1  | 2026-10-13 19:21:51.905 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1  | 2026-10-13 19:21:51.905 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1  | 2026-10-13 19:21:51.916 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-10-13 19:21:51.936 UTC [82] LOG:  database system was shut down at 2026-10-13 19:21:51 UTC
+db-1  | 2026-10-13 19:21:51.952 UTC [1] LOG:  database system is ready to accept connections
+db-1  | 2026-10-13 19:26:51.916 UTC [80] LOG:  checkpoint starting: time
+db-1  | 2026-10-13 19:27:05.996 UTC [80] LOG:  checkpoint complete: wrote 142 buffers (0.9%); 0 WAL file(s) added, 0 removed, 0 recycled; write=14.042 s, sync=0.021 s, total=14.082 s; sync files=74, longest=0.004 s, average=0.001 s; distance=638 kB, estimate=638 kB; lsn=0/19B7550, redo lsn=0/19B74C0
+monolith-1  | 
+monolith-1  |   .   ____          _            __ _ _
+monolith-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+api-gateway-1  | 
+api-gateway-1  |   .   ____          _            __ _ _
+api-gateway-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+api-gateway-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+api-gateway-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+api-gateway-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+api-gateway-1  |  =========|_|==============|___/=/_/_/_/
+api-gateway-1  | 
+api-gateway-1  |  :: Spring Boot ::               (v3.5.13)
+api-gateway-1  | 
+api-gateway-1  | 2026-10-13T19:22:18.638Z  INFO 1 --- [api-gateway] [           main] c.banking.gateway.ApiGatewayApplication  : Starting ApiGatewayApplication v1.0.0 using Java 17.0.20.1 with PID 1 (/app/app.jar started by root in /app)
+api-gateway-1  | 2026-10-13T19:22:18.651Z DEBUG 1 --- [api-gateway] [           main] c.banking.gateway.ApiGatewayApplication  : Running with Spring Boot v3.5.13, Spring v6.2.17
+api-gateway-1  | 2026-10-13T19:22:18.660Z  INFO 1 --- [api-gateway] [           main] c.banking.gateway.ApiGatewayApplication  : No active profile set, falling back to 1 default profile: "default"
+api-gateway-1  | 2026-10-13T19:22:31.847Z  INFO 1 --- [api-gateway] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=d64f14d8-b8eb-353e-b0e1-4aa331a20a44
+api-gateway-1  | 2026-10-13T19:22:36.056Z  INFO 1 --- [api-gateway] [           main] ctiveUserDetailsServiceAutoConfiguration : 
+api-gateway-1  | 
+api-gateway-1  | Using generated security password: c32303ab-b6c8-4747-9878-b8d8f0f5e844
+api-gateway-1  | 
+api-gateway-1  | 2026-10-13T19:22:40.293Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
+api-gateway-1  | 2026-10-13T19:22:40.294Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
+api-gateway-1  | 2026-10-13T19:22:40.294Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
+api-gateway-1  | 2026-10-13T19:22:40.294Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
+api-gateway-1  | 2026-10-13T19:22:40.295Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
+api-gateway-1  | 2026-10-13T19:22:40.295Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
+api-gateway-1  | 2026-10-13T19:22:40.296Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
+api-gateway-1  | 2026-10-13T19:22:40.296Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
+api-gateway-1  | 2026-10-13T19:22:40.297Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
+api-gateway-1  | 2026-10-13T19:22:40.297Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
+api-gateway-1  | 2026-10-13T19:22:40.297Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
+api-gateway-1  | 2026-10-13T19:22:40.298Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+api-gateway-1  | 2026-10-13T19:22:40.298Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
+api-gateway-1  | 2026-10-13T19:22:40.310Z  INFO 1 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
+api-gateway-1  | 2026-10-13T19:22:42.727Z  INFO 1 --- [api-gateway] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+api-gateway-1  | 2026-10-13T19:22:44.522Z  INFO 1 --- [api-gateway] [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080 (http)
+api-gateway-1  | 2026-10-13T19:22:45.560Z  INFO 1 --- [api-gateway] [           main] c.banking.gateway.ApiGatewayApplication  : Started ApiGatewayApplication in 32.815 seconds (process running for 43.264)
+monolith-1     | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+monolith-1     |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+monolith-1     |   '  |____| .__|_| |_|_| |_\__, | / / / /
+monolith-1     |  =========|_|==============|___/=/_/_/_/
+monolith-1     | 
+monolith-1     |  :: Spring Boot ::               (v3.5.13)
+monolith-1     | 
+monolith-1     | 2026-10-13T19:22:09.938Z  INFO 1 --- [banking-monolith] [           main] c.b.b.BankingMonolithApplication         : Starting BankingMonolithApplication v0.0.1-SNAPSHOT using Java 17.0.20.1 with PID 1 (/app/app.jar started by root in /app)
+monolith-1     | 2026-10-13T19:22:09.981Z  INFO 1 --- [banking-monolith] [           main] c.b.b.BankingMonolithApplication         : No active profile set, falling back to 1 default profile: "default"
+monolith-1     | 2026-10-13T19:22:25.208Z  INFO 1 --- [banking-monolith] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+monolith-1     | 2026-10-13T19:22:25.726Z  INFO 1 --- [banking-monolith] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 438 ms. Found 4 JPA repository interfaces.
+monolith-1     | 2026-10-13T19:22:30.604Z  INFO 1 --- [banking-monolith] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+monolith-1     | 2026-10-13T19:22:30.679Z  INFO 1 --- [banking-monolith] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+monolith-1     | 2026-10-13T19:22:30.684Z  INFO 1 --- [banking-monolith] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.53]
+monolith-1     | 2026-10-13T19:22:30.854Z  INFO 1 --- [banking-monolith] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+monolith-1     | 2026-10-13T19:22:30.858Z  INFO 1 --- [banking-monolith] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 19752 ms
+monolith-1     | 2026-10-13T19:22:32.084Z  INFO 1 --- [banking-monolith] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+monolith-1     | 2026-10-13T19:22:32.697Z  INFO 1 --- [banking-monolith] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.45.Final
+monolith-1     | 2026-10-13T19:22:32.968Z  INFO 1 --- [banking-monolith] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+monolith-1     | 2026-10-13T19:22:34.608Z  INFO 1 --- [banking-monolith] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+monolith-1     | 2026-10-13T19:22:34.792Z  INFO 1 --- [banking-monolith] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+monolith-1     | 2026-10-13T19:22:36.082Z  INFO 1 --- [banking-monolith] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@41026e5c
+monolith-1     | 2026-10-13T19:22:36.091Z  INFO 1 --- [banking-monolith] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+monolith-1     | 2026-10-13T19:22:36.471Z  WARN 1 --- [banking-monolith] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+monolith-1     | 2026-10-13T19:22:36.742Z  INFO 1 --- [banking-monolith] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+monolith-1     | 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+monolith-1     | 	Database driver: undefined/unknown
+monolith-1     | 	Database version: 17.11
+monolith-1     | 	Autocommit mode: undefined/unknown
+monolith-1     | 	Isolation level: undefined/unknown
+monolith-1     | 	Minimum pool size: undefined/unknown
+monolith-1     | 	Maximum pool size: undefined/unknown
+monolith-1     | 2026-10-13T19:22:43.946Z  INFO 1 --- [banking-monolith] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+monolith-1     | 2026-10-13T19:22:44.178Z  WARN 1 --- [banking-monolith] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+monolith-1     | 2026-10-13T19:22:44.181Z  WARN 1 --- [banking-monolith] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk6kplolsdtr3slnvx97xsy2kc8" of relation "accounts" does not exist, skipping
+monolith-1     | 2026-10-13T19:22:44.200Z  WARN 1 --- [banking-monolith] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+monolith-1     | 2026-10-13T19:22:44.200Z  WARN 1 --- [banking-monolith] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+monolith-1     | 2026-10-13T19:22:44.239Z  INFO 1 --- [banking-monolith] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+monolith-1     | 2026-10-13T19:22:46.889Z  INFO 1 --- [banking-monolith] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+monolith-1     | 2026-10-13T19:22:46.890Z  WARN 1 --- [banking-monolith] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+monolith-1     | 2026-10-13T19:22:47.043Z  INFO 1 --- [banking-monolith] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+monolith-1     | 2026-10-13T19:22:50.812Z  WARN 1 --- [banking-monolith] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+monolith-1     | 2026-10-13T19:22:51.913Z  INFO 1 --- [banking-monolith] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+monolith-1     | 2026-10-13T19:22:53.833Z  INFO 1 --- [banking-monolith] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+monolith-1     | 2026-10-13T19:22:53.904Z  INFO 1 --- [banking-monolith] [           main] c.b.b.BankingMonolithApplication         : Started BankingMonolithApplication in 53.043 seconds (process running for 58.741)
+monolith-1     | 2026-10-13T19:22:54.652Z  INFO 1 --- [banking-monolith] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+monolith-1     | 2026-10-13T19:22:54.653Z  INFO 1 --- [banking-monolith] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+monolith-1     | 2026-10-13T19:22:54.657Z  INFO 1 --- [banking-monolith] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+account-service-1  | 
+account-service-1  |   .   ____          _            __ _ _
+account-service-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+account-service-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+account-service-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+account-service-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+account-service-1  |  =========|_|==============|___/=/_/_/_/
+account-service-1  | 
+account-service-1  |  :: Spring Boot ::               (v3.5.13)
+account-service-1  | 
+account-service-1  | 2026-10-13T19:22:15.360Z  INFO 1 --- [account-service] [           main] c.b.a.AccountServiceApplication          : Starting AccountServiceApplication v1.0.0 using Java 17.0.20.1 with PID 1 (/app/app.jar started by root in /app)
+account-service-1  | 2026-10-13T19:22:15.375Z DEBUG 1 --- [account-service] [           main] c.b.a.AccountServiceApplication          : Running with Spring Boot v3.5.13, Spring v6.2.17
+account-service-1  | 2026-10-13T19:22:15.379Z  INFO 1 --- [account-service] [           main] c.b.a.AccountServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+account-service-1  | 2026-10-13T19:22:26.807Z  INFO 1 --- [account-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+account-service-1  | 2026-10-13T19:22:27.844Z  INFO 1 --- [account-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 912 ms. Found 1 JPA repository interface.
+account-service-1  | 2026-10-13T19:22:32.400Z  INFO 1 --- [account-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+account-service-1  | 2026-10-13T19:22:32.469Z  INFO 1 --- [account-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+account-service-1  | 2026-10-13T19:22:32.470Z  INFO 1 --- [account-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.53]
+account-service-1  | 2026-10-13T19:22:32.978Z  INFO 1 --- [account-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+account-service-1  | 2026-10-13T19:22:32.987Z  INFO 1 --- [account-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 17301 ms
+account-service-1  | 2026-10-13T19:22:35.220Z  INFO 1 --- [account-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+account-service-1  | 2026-10-13T19:22:35.800Z  INFO 1 --- [account-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.45.Final
+account-service-1  | 2026-10-13T19:22:36.124Z  INFO 1 --- [account-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+account-service-1  | 2026-10-13T19:22:39.141Z  INFO 1 --- [account-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+account-service-1  | 2026-10-13T19:22:39.365Z  INFO 1 --- [account-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+account-service-1  | 2026-10-13T19:22:41.690Z  INFO 1 --- [account-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@17f41739
+account-service-1  | 2026-10-13T19:22:41.715Z  INFO 1 --- [account-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+account-service-1  | 2026-10-13T19:22:42.406Z  WARN 1 --- [account-service] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+account-service-1  | 2026-10-13T19:22:42.759Z  INFO 1 --- [account-service] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+account-service-1  | 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+account-service-1  | 	Database driver: undefined/unknown
+account-service-1  | 	Database version: 17.11
+account-service-1  | 	Autocommit mode: undefined/unknown
+account-service-1  | 	Isolation level: undefined/unknown
+account-service-1  | 	Minimum pool size: undefined/unknown
+account-service-1  | 	Maximum pool size: undefined/unknown
+account-service-1  | 2026-10-13T19:22:48.954Z  INFO 1 --- [account-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+account-service-1  | 2026-10-13T19:22:49.153Z  INFO 1 --- [account-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+account-service-1  | 2026-10-13T19:22:51.663Z  WARN 1 --- [account-service] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+account-service-1  | 2026-10-13T19:22:53.771Z  INFO 1 --- [account-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+account-service-1  | 2026-10-13T19:22:54.173Z  INFO 1 --- [account-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+account-service-1  | 2026-10-13T19:22:54.290Z  INFO 1 --- [account-service] [           main] c.b.a.AccountServiceApplication          : Started AccountServiceApplication in 44.971 seconds (process running for 54.462)
+account-service-1  | 2026-10-13T19:22:56.128Z  INFO 1 --- [account-service] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+account-service-1  | 2026-10-13T19:22:56.129Z  INFO 1 --- [account-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+account-service-1  | 2026-10-13T19:22:56.134Z  INFO 1 --- [account-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+prometheus-1       | ts=2026-10-13T19:22:02.956Z caller=main.go:627 level=info msg="No time or size retention was set so using the default time retention" duration=15d
+prometheus-1       | ts=2026-10-13T19:22:02.956Z caller=main.go:671 level=info msg="Starting Prometheus Server" mode=server version="(version=2.55.1, branch=HEAD, revision=6d7569113f1ca814f1e149f74176656540043b8d)"
+prometheus-1       | ts=2026-10-13T19:22:02.956Z caller=main.go:676 level=info build_context="(go=go1.23.2, platform=linux/amd64, user=root@194e0f5dd5e8, date=20241106-10:08:33, tags=netgo,builtinassets,stringlabels)"
+prometheus-1       | ts=2026-10-13T19:22:02.956Z caller=main.go:677 level=info host_details="(Linux 6.18.54.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026 x86_64 c9fb0fb89eaf localdomain)"
+prometheus-1       | ts=2026-10-13T19:22:02.957Z caller=main.go:678 level=info fd_limits="(soft=1048576, hard=1048576)"
+prometheus-1       | ts=2026-10-13T19:22:02.957Z caller=main.go:679 level=info vm_limits="(soft=unlimited, hard=unlimited)"
+prometheus-1       | ts=2026-10-13T19:22:03.036Z caller=web.go:585 level=info component=web msg="Start listening for connections" address=0.0.0.0:9090
+prometheus-1       | ts=2026-10-13T19:22:03.070Z caller=main.go:1197 level=info msg="Starting TSDB ..."
+prometheus-1       | ts=2026-10-13T19:22:03.122Z caller=tls_config.go:348 level=info component=web msg="Listening on" address=[::]:9090
+prometheus-1       | ts=2026-10-13T19:22:03.123Z caller=tls_config.go:351 level=info component=web msg="TLS is disabled." http2=false address=[::]:9090
+prometheus-1       | ts=2026-10-13T19:22:03.182Z caller=head.go:627 level=info component=tsdb msg="Replaying on-disk memory mappable chunks if any"
+prometheus-1       | ts=2026-10-13T19:22:03.190Z caller=head.go:714 level=info component=tsdb msg="On-disk memory mappable chunks replay completed" duration=641.541µs
+prometheus-1       | ts=2026-10-13T19:22:03.198Z caller=head.go:722 level=info component=tsdb msg="Replaying WAL, this may take a while"
+prometheus-1       | ts=2026-10-13T19:22:03.212Z caller=head.go:794 level=info component=tsdb msg="WAL segment loaded" segment=0 maxSegment=0
+prometheus-1       | ts=2026-10-13T19:22:03.212Z caller=head.go:831 level=info component=tsdb msg="WAL replay completed" checkpoint_replay_duration=293.065µs wal_replay_duration=13.737414ms wbl_replay_duration=200ns chunk_snapshot_load_duration=0s mmap_chunk_replay_duration=641.541µs total_replay_duration=23.236598ms
+prometheus-1       | ts=2026-10-13T19:22:03.309Z caller=main.go:1218 level=info fs_type=EXT4_SUPER_MAGIC
+prometheus-1       | ts=2026-10-13T19:22:03.309Z caller=main.go:1221 level=info msg="TSDB started"
+prometheus-1       | ts=2026-10-13T19:22:03.309Z caller=main.go:1404 level=info msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
+prometheus-1       | ts=2026-10-13T19:22:03.359Z caller=main.go:1441 level=info msg="updated GOGC" old=100 new=75
+prometheus-1       | ts=2026-10-13T19:22:03.367Z caller=main.go:1452 level=info msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml totalDuration=51.520203ms db_storage=71.416µs remote_storage=2.801µs web_handler=600ns query_engine=2.4µs scrape=28.7151ms scrape_sd=163.636µs notify=1.6µs notify_sd=1.1µs rules=1.102441ms tracing=4.844563ms
+prometheus-1       | ts=2026-10-13T19:22:03.368Z caller=main.go:1182 level=info msg="Server is ready to receive web requests."
+prometheus-1       | ts=2026-10-13T19:22:03.369Z caller=manager.go:164 level=info component="rule manager" msg="Starting rule manager..."
+nginx-1            | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+nginx-1            | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+nginx-1            | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+nginx-1            | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+nginx-1            | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+nginx-1            | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+nginx-1            | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+nginx-1            | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+nginx-1            | /docker-entrypoint.sh: Configuration complete; ready for start up
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: using the "epoll" event method
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: nginx/1.27.5
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: OS: Linux 6.18.54.1-microsoft-standard-WSL2
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: start worker processes
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: start worker process 30
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: start worker process 31
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: start worker process 32
+nginx-1            | 2026/10/13 19:22:03 [notice] 1#1: start worker process 33
+nginx-1            | 2026/10/13 19:22:08 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:08 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:11 [error] 30#30: *3 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:11 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:13 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:13 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:14 [error] 31#31: *6 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:14 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:17 [error] 32#32: *8 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:17 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:18 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:18 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:20 [error] 33#33: *11 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:20 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:22 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:22 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:23 [error] 33#33: *14 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:23 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:26 [error] 33#33: *16 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:26 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:27 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:27 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:29 [error] 33#33: *19 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:29 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:32 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:32 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:32 [error] 33#33: *22 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:32 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:35 [error] 33#33: *24 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:35 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:36 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:36 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:38 [error] 33#33: *27 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:38 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:41 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:41 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:41 [error] 33#33: *30 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:41 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:45 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:45 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:46 [error] 33#33: *33 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:46 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:49 [error] 33#33: *35 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:49 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 2026/10/13 19:22:50 [error] 33#33: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "localhost"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:50 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:22:52 [error] 33#33: *38 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.8, server: , request: "GET /actuator/health HTTP/1.1", upstream: "http://172.18.0.3:8080/actuator/health", host: "nginx:80"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:52 +0000] "GET /actuator/health HTTP/1.1" 502 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:55 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:22:56 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:22:59 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:01 +0000] "POST /api/users/register HTTP/1.1" 201 141 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:01 +0000] "POST /api/users/register HTTP/1.1" 201 140 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:01 +0000] "POST /api/users/register HTTP/1.1" 201 141 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:01 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/accounts HTTP/1.1" 201 192 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/accounts HTTP/1.1" 201 191 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/accounts HTTP/1.1" 201 192 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/accounts HTTP/1.1" 201 191 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/accounts HTTP/1.1" 201 192 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/accounts HTTP/1.1" 201 191 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/transactions/deposit HTTP/1.1" 201 188 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/transactions/deposit HTTP/1.1" 201 187 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/transactions/deposit HTTP/1.1" 201 187 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/transactions/withdraw HTTP/1.1" 201 190 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "POST /api/transactions/transfer HTTP/1.1" 201 184 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "GET /api/accounts HTTP/1.1" 200 382 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "GET /api/accounts HTTP/1.1" 200 382 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:02 +0000] "GET /api/accounts HTTP/1.1" 200 382 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:04 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: signal 1 (SIGHUP) received from 34, reconfiguring
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: reconfiguring
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: using the "epoll" event method
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: start worker processes
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: start worker process 41
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: start worker process 42
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: start worker process 43
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: start worker process 44
+nginx-1            | 2026/10/13 19:23:04 [notice] 32#32: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:04 [notice] 30#30: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:04 [notice] 31#31: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:04 [notice] 32#32: exiting
+nginx-1            | 2026/10/13 19:23:04 [notice] 30#30: exiting
+nginx-1            | 2026/10/13 19:23:04 [notice] 31#31: exiting
+nginx-1            | 2026/10/13 19:23:04 [notice] 31#31: exit
+nginx-1            | 2026/10/13 19:23:04 [notice] 30#30: exit
+nginx-1            | 2026/10/13 19:23:04 [notice] 32#32: exit
+nginx-1            | 2026/10/13 19:23:04 [notice] 33#33: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:04 [notice] 33#33: exiting
+nginx-1            | 2026/10/13 19:23:04 [notice] 33#33: exit
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: signal 17 (SIGCHLD) received from 30
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: worker process 30 exited with code 0
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: worker process 31 exited with code 0
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: worker process 32 exited with code 0
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: signal 17 (SIGCHLD) received from 33
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: worker process 33 exited with code 0
+nginx-1            | 2026/10/13 19:23:04 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:07 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:07 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:07 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:08 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:09 +0000] "GET /api/accounts HTTP/1.1" 200 314 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:09 +0000] "GET /api/accounts HTTP/1.1" 200 314 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:10 +0000] "GET /api/accounts HTTP/1.1" 200 314 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:13 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:16 +0000] "POST /api/accounts HTTP/1.1" 201 157 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:16 +0000] "POST /api/accounts HTTP/1.1" 201 158 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:16 +0000] "DELETE /api/accounts/6 HTTP/1.1" 200 159 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:16 +0000] "GET /api/accounts HTTP/1.1" 200 469 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:16 +0000] "GET /api/accounts HTTP/1.1" 200 464 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:16 +0000] "GET /api/accounts HTTP/1.1" 200 314 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:17 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: signal 1 (SIGHUP) received from 45, reconfiguring
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: reconfiguring
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: using the "epoll" event method
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: start worker processes
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: start worker process 51
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: start worker process 52
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: start worker process 53
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: start worker process 54
+nginx-1            | 2026/10/13 19:23:18 [notice] 41#41: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:18 [notice] 42#42: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:18 [notice] 44#44: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:18 [notice] 41#41: exiting
+nginx-1            | 2026/10/13 19:23:18 [notice] 42#42: exiting
+nginx-1            | 2026/10/13 19:23:18 [notice] 43#43: gracefully shutting down
+nginx-1            | 2026/10/13 19:23:18 [notice] 44#44: exiting
+nginx-1            | 2026/10/13 19:23:18 [notice] 43#43: exiting
+nginx-1            | 2026/10/13 19:23:18 [notice] 41#41: exit
+nginx-1            | 2026/10/13 19:23:18 [notice] 44#44: exit
+nginx-1            | 2026/10/13 19:23:18 [notice] 43#43: exit
+nginx-1            | 2026/10/13 19:23:18 [notice] 42#42: exit
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: signal 17 (SIGCHLD) received from 41
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: worker process 41 exited with code 0
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: worker process 44 exited with code 0
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: signal 17 (SIGCHLD) received from 43
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: worker process 43 exited with code 0
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: signal 17 (SIGCHLD) received from 42
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: worker process 42 exited with code 0
+nginx-1            | 2026/10/13 19:23:18 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:21 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:24 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:24 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:24 +0000] "POST /api/auth/login HTTP/1.1" 200 252 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:24 +0000] "GET /api/accounts HTTP/1.1" 200 565 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:24 +0000] "GET /api/accounts HTTP/1.1" 200 566 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "GET /api/accounts HTTP/1.1" 200 382 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "GET /api/accounts/7/balance HTTP/1.1" 200 193 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "POST /api/transactions/deposit HTTP/1.1" 400 106 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "POST /api/accounts HTTP/1.1" 201 192 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "POST /api/transactions/deposit HTTP/1.1" 201 213 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "GET /api/accounts HTTP/1.1" 200 565 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "GET /api/accounts HTTP/1.1" 200 750 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:23:25 +0000] "GET /api/accounts HTTP/1.1" 200 382 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:27 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:34 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:38 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:44 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:48 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:52 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:23:56 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:00 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:04 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:08 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:12 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:16 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:20 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:24 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:28 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:32 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:37 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:41 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:45 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:49 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:53 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:24:57 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:01 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:05 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:10 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:14 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:21 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:25 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:29 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:33 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:37 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:41 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:45 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:48 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:52 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:25:56 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:00 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:04 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:08 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:12 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:16 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:20 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:24 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:28 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:32 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:36 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:40 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:43 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:48 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:51 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:55 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:26:59 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:03 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:08 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:11 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:15 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:19 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:23 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:27 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:31 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:35 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:39 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:43 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:47 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:51 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:55 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:27:59 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:03 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:07 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:11 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:15 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:18 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:22 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:26 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"
+nginx-1            | 172.18.0.8 - - [13/Oct/2026:19:28:29 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Python-urllib/3.12" "-"
+nginx-1            | 172.18.0.1 - - [13/Oct/2026:19:28:31 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; tr-TR) WindowsPowerShell/5.1.26100.9444" "-"

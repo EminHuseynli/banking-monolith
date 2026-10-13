@@ -1,0 +1,4 @@
+Switching traffic to: monolith
+2026/10/13 19:31:14 [notice] 44#44: signal process started
+Done. Traffic is now routed to: monolith
+Verify: curl -s http://localhost/actuator/health | jq

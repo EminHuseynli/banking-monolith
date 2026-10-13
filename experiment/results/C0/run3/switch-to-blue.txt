@@ -1,0 +1,4 @@
+Switching traffic to: blue
+2026/10/13 19:30:38 [notice] 33#33: signal process started
+Done. Traffic is now routed to: blue
+Verify: curl -s http://localhost/actuator/health | jq
