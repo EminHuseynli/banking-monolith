@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'banking-monolith'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['monolith:8080']
+
+  # account-service and api-gateway expose only health/info at 4f077f2 (no prometheus registry)

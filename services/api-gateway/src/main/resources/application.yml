@@ -1,0 +1,93 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    gateway:
+      routes:
+        # user-service handles both auth (login) and user management (register, CRUD)
+        - id: user-service
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/auth/**, /api/users/**
+
+        - id: account-service
+          uri: ${ACCOUNT_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/accounts/**
+
+        - id: transaction-service
+          uri: ${TRANSACTION_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/transactions/**
+
+        - id: notification-service
+          uri: ${NOTIFICATION_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/notifications/**
+
+        # Routes for aggregated Swagger — forward /X-service/v3/api-docs to each service
+        - id: user-service-docs
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/user-service/v3/api-docs
+          filters:
+            - RewritePath=/user-service/v3/api-docs, /v3/api-docs
+
+        - id: account-service-docs
+          uri: ${ACCOUNT_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/account-service/v3/api-docs
+          filters:
+            - RewritePath=/account-service/v3/api-docs, /v3/api-docs
+
+        - id: transaction-service-docs
+          uri: ${TRANSACTION_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/transaction-service/v3/api-docs
+          filters:
+            - RewritePath=/transaction-service/v3/api-docs, /v3/api-docs
+
+        - id: notification-service-docs
+          uri: ${NOTIFICATION_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/notification-service/v3/api-docs
+          filters:
+            - RewritePath=/notification-service/v3/api-docs, /v3/api-docs
+
+# JWT secret must match the secret used by user-service for token generation.
+# In production / Docker, override via JWT_SECRET environment variable.
+jwt:
+  secret: ${JWT_SECRET:your-base64-encoded-secret-here}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, gateway
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  swagger-ui:
+    persist-authorization: true
+    urls:
+      - name: user-service
+        url: /user-service/v3/api-docs
+      - name: account-service
+        url: /account-service/v3/api-docs
+      - name: transaction-service
+        url: /transaction-service/v3/api-docs
+      - name: notification-service
+        url: /notification-service/v3/api-docs
+
+logging:
+  level:
+    com.banking.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
