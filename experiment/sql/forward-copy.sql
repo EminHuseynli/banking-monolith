@@ -1,6 +1,6 @@
 -- Forward data migration at cut-over (C1 runs only): copy the monolith's accounts
 -- into account-service's schema, then advance the identity sequence so the service
--- does not hand out ids that already exist. This is the "ileri taşıma" of a real migration.
+-- does not hand out ids that already exist. This is the forward data move of a real migration.
 -- Run with no traffic on /api/accounts.
 
 BEGIN;

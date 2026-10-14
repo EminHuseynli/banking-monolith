@@ -1,17 +1,17 @@
 # Build context: services/
 FROM maven:3.9-eclipse-temurin-17 AS build
 
-# 1. Parent POM'u local Maven repo'ya kur (-N = sadece bu POM, child modüllere bakma)
+# 1. Install the parent POM into the local Maven repo (-N = this POM only, skip the child modules)
 WORKDIR /app
 COPY pom.xml .
 RUN mvn install -N -q
 
-# 2. api-gateway bağımlılıklarını çöz (pom değişmedikçe cache'den gelir)
+# 2. Resolve the api-gateway dependencies (cached until the pom changes)
 WORKDIR /app/api-gateway
 COPY api-gateway/pom.xml .
 RUN mvn dependency:go-offline -q || true
 
-# 3. Kaynak kodu kopyala ve build et
+# 3. Copy the source code and build
 COPY api-gateway/src ./src
 RUN mvn clean package -DskipTests -q
 

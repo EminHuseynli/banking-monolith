@@ -26,17 +26,22 @@ repository. It was rebuilt from the closest existing versions:
 | Part | Source |
 |---|---|
 | Monolith | this repo @ `6c68e98`, the version that coexisted with the services. The later `d7d1d96` on `main` adds Flyway, `ddl-auto=validate` and a pessimistic lock; it is not used here. |
-| `account-service`, `api-gateway` | [`banking-microservice`](https://github.com/EminHuseynli/banking-microservice) @ `4f077f2`, copied unchanged |
+| `account-service`, `api-gateway` | [`banking-microservice`](https://github.com/EminHuseynli/banking-microservice) @ `4f077f2`, copied unchanged (comments translated later, see 3. below) |
 | `switch-blue-green.sh`, `init-schemas.sql` | `banking-microservice` @ `9929265` |
 
 Changes made for the reconstruction:
 
 1. **The monolith's JWT gets a `userId` claim** (`dfe41d8`). The gateway forwards it as
    `X-User-Id`; without it every account-service request fails with 400. The monolith
-   itself never reads the claim. This is the only change to monolith code, and it is the
-   same in every condition.
+   itself never reads the claim. This is the only functional change to monolith code, and
+   it is the same in every condition.
 2. **Composition only**: a compose file, two Nginx configs, a Prometheus config, and the
    thesis switch script with a `monolith` target added.
+3. **Turkish text translated to English, after all runs**: three build comments in
+   `services/api-gateway/Dockerfile` and the monolith's welcome notification
+   ("Welcome! Your account has been successfully created.", the text `main` already
+   uses). Neither touches the account code path. All runs used the code at the tags
+   below (`c0-shared-schema`, `c1-schema-split`), which still carry the original text.
 
 Only the account module is extracted. Users, transactions and notifications stay in the
 monolith, and the monolith's transaction module keeps writing `public.accounts`
