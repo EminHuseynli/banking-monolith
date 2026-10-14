@@ -16,12 +16,19 @@ The account module is extracted into `account-service`, and Nginx switches `/api
 | Condition | Database | Writes on the service before rollback | Result |
 |---|---|---|---|
 | **C0** (control) | shared schema (`public.accounts`) | yes | **4/4 runs: all 3 service-era writes visible after rollback.** Exit code 0, health UP, Prometheus up, no new ERROR/WARN lines, no 5xx. |
-| C1a | separate schema (`account_schema`), data copied at cut-over | no | pending |
-| C1b | separate schema (`account_schema`), data copied at cut-over | yes | pending |
+| C1a | separate schema (`account_schema`), data copied at cut-over | no | 4/4 runs: nothing lost. All signals green. |
+| C1b | separate schema (`account_schema`), data copied at cut-over | yes | **4/4 runs: 0 of 3 service-era writes visible after rollback.** A closed account takes deposits again, the monolith gives the service's account number to another customer, and a deposit by the old id lands in that customer's account. Exit code 0, health UP, Prometheus up, no new ERROR/WARN lines, no 5xx. |
 
-With a shared schema the switch is safe in both directions. C1a and C1b repeat the same rollback after the database separation.
+With a shared schema the switch is safe in both directions (C0), and separating the schema and copying the data loses nothing on its own (C1a). Once the service has written to its own schema, rolling back loses every one of those writes, and none of the signals used to judge the rollback notice (C1b).
+
+<img alt="C1b: after rollback to the monolith, the service-era writes are missing while every signal stays green" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C1b-run1/images/4-after-rollback.png?raw=true" />
+
+<details>
+<summary>C0 (control): the same rollback with a shared schema keeps every write</summary>
 
 <img alt="C0: after rollback to the monolith, all service-era writes are visible and all signals are green" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C0-run1/images/4-after-rollback.png?raw=true" />
+
+</details>
 
 **→ Full method, reconstruction notes, screenshots and raw results: [experiment/README.md](https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/README.md)** on the [`experiment/rollback-loss`](https://github.com/EminHuseynli/banking-monolith/tree/experiment/rollback-loss) branch.
 
