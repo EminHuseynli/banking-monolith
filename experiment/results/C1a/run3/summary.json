@@ -1,0 +1,77 @@
+{
+  "condition": "C1a",
+  "run": "3",
+  "commit": "0c1ffa7",
+  "switch_to_blue_exit": "0",
+  "rollback_exit": "0",
+  "nginx_routes_after_rollback": "monolith",
+  "forward_served_by": [
+    "account-service"
+  ],
+  "forward_consistent": true,
+  "verify": {
+    "logins_ok": true,
+    "served_by": [
+      "monolith"
+    ],
+    "seed_balances_intact": true,
+    "new_account": {
+      "http": 201,
+      "id": 7,
+      "accountNumber": "ACC-000007",
+      "accountType": "CHECKING",
+      "balance": 0.0,
+      "status": "ACTIVE",
+      "userId": 2
+    }
+  },
+  "signals": {
+    "monolith_health": "UP",
+    "gateway_health": "UP",
+    "account_service_health": "UP",
+    "prometheus_targets": [
+      {
+        "job": "banking-monolith",
+        "health": "up"
+      }
+    ],
+    "prometheus_monolith_requests_by_status": {
+      "200": 82.0,
+      "201": 15.0
+    }
+  },
+  "log_lines_since_rollback": {
+    "error_monolith": 0,
+    "warn_monolith": 0,
+    "error_account_service": 0,
+    "warn_account_service": 0,
+    "error_api_gateway": 0,
+    "warn_api_gateway": 0,
+    "error_nginx": 0,
+    "warn_nginx": 0
+  },
+  "db": {
+    "db_public_accounts": "6",
+    "db_account_schema_accounts": "6",
+    "db_rows_only_in_account_schema": "0",
+    "db_status_differs": "0"
+  },
+  "http_status_by_phase": {
+    "seed": {
+      "201": 14,
+      "200": 6
+    },
+    "forward": {
+      "200": 6
+    },
+    "verify": {
+      "200": 6,
+      "201": 1
+    },
+    "signals": {
+      "200": 5
+    }
+  },
+  "post_rollback_5xx": 0,
+  "post_rollback_4xx": 0
+}

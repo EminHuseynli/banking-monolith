@@ -1,0 +1,329 @@
+{
+  "users": {
+    "u1": {
+      "email": "u1.c1a-run1@exp.test",
+      "id": 1,
+      "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1MS5jMWEtcnVuMUBleHAudGVzdCIsInVzZXJJZCI6MSwiaWF0IjoxNzkxOTk5NDQ3LCJleHAiOjE3OTIwODU4NDd9.s3Z-VDv5K2e-EL-JunPnI1TT3_KWIwZ2kuUb0fjM_upZcFYrFWCiy6GRM3qAgvPA",
+      "login_status": {
+        "seed": 200,
+        "forward": 200,
+        "verify": 200
+      }
+    },
+    "u2": {
+      "email": "u2.c1a-run1@exp.test",
+      "id": 2,
+      "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1Mi5jMWEtcnVuMUBleHAudGVzdCIsInVzZXJJZCI6MiwiaWF0IjoxNzkxOTk5NDQ3LCJleHAiOjE3OTIwODU4NDd9.vJTHQOL6TZYllEhiTogPbvICVtFwgmdLDJxl1K0B5TsqipNx_gbPgemrXu8W27tt",
+      "login_status": {
+        "seed": 200,
+        "forward": 200,
+        "verify": 200
+      }
+    },
+    "u3": {
+      "email": "u3.c1a-run1@exp.test",
+      "id": 3,
+      "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1My5jMWEtcnVuMUBleHAudGVzdCIsInVzZXJJZCI6MywiaWF0IjoxNzkxOTk5NDQ3LCJleHAiOjE3OTIwODU4NDd9.12fNgTSiU7FryK_GiqOob7nFxcuNnzqSychfsPcZXQqQuyHU2vnHvxCIDNCPmZHd",
+      "login_status": {
+        "seed": 200,
+        "forward": 200,
+        "verify": 200
+      }
+    }
+  },
+  "seed_accounts": {
+    "u1": {
+      "CHECKING": {
+        "id": 1,
+        "accountNumber": "ACC-000001",
+        "accountType": "CHECKING",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 1
+      },
+      "SAVINGS": {
+        "id": 2,
+        "accountNumber": "ACC-000002",
+        "accountType": "SAVINGS",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 1
+      }
+    },
+    "u2": {
+      "CHECKING": {
+        "id": 3,
+        "accountNumber": "ACC-000003",
+        "accountType": "CHECKING",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 2
+      },
+      "SAVINGS": {
+        "id": 4,
+        "accountNumber": "ACC-000004",
+        "accountType": "SAVINGS",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 2
+      }
+    },
+    "u3": {
+      "CHECKING": {
+        "id": 5,
+        "accountNumber": "ACC-000005",
+        "accountType": "CHECKING",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 3
+      },
+      "SAVINGS": {
+        "id": 6,
+        "accountNumber": "ACC-000006",
+        "accountType": "SAVINGS",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 3
+      }
+    }
+  },
+  "view_seed": {
+    "u1": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 2,
+          "accountNumber": "ACC-000002",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 1,
+          "accountNumber": "ACC-000001",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 1
+        }
+      ]
+    },
+    "u2": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 4,
+          "accountNumber": "ACC-000004",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 3,
+          "accountNumber": "ACC-000003",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 2
+        }
+      ]
+    },
+    "u3": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 6,
+          "accountNumber": "ACC-000006",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 3
+        },
+        {
+          "id": 5,
+          "accountNumber": "ACC-000005",
+          "accountType": "CHECKING",
+          "balance": 250.0,
+          "status": "ACTIVE",
+          "userId": 3
+        }
+      ]
+    }
+  },
+  "view_forward": {
+    "u1": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 2,
+          "accountNumber": "ACC-000002",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 1,
+          "accountNumber": "ACC-000001",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 1
+        }
+      ]
+    },
+    "u2": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 4,
+          "accountNumber": "ACC-000004",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 3,
+          "accountNumber": "ACC-000003",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 2
+        }
+      ]
+    },
+    "u3": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 6,
+          "accountNumber": "ACC-000006",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 3
+        },
+        {
+          "id": 5,
+          "accountNumber": "ACC-000005",
+          "accountType": "CHECKING",
+          "balance": 250.0,
+          "status": "ACTIVE",
+          "userId": 3
+        }
+      ]
+    }
+  },
+  "forward_served_by": [
+    "account-service"
+  ],
+  "forward_consistent": true,
+  "view_rollback": {
+    "u1": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 2,
+          "accountNumber": "ACC-000002",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 1,
+          "accountNumber": "ACC-000001",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 1
+        }
+      ]
+    },
+    "u2": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 4,
+          "accountNumber": "ACC-000004",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 3,
+          "accountNumber": "ACC-000003",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 2
+        }
+      ]
+    },
+    "u3": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 6,
+          "accountNumber": "ACC-000006",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 3
+        },
+        {
+          "id": 5,
+          "accountNumber": "ACC-000005",
+          "accountType": "CHECKING",
+          "balance": 250.0,
+          "status": "ACTIVE",
+          "userId": 3
+        }
+      ]
+    }
+  },
+  "verify": {
+    "logins_ok": true,
+    "served_by": [
+      "monolith"
+    ],
+    "seed_balances_intact": true,
+    "new_account": {
+      "http": 201,
+      "id": 7,
+      "accountNumber": "ACC-000007",
+      "accountType": "CHECKING",
+      "balance": 0.0,
+      "status": "ACTIVE",
+      "userId": 2
+    }
+  },
+  "signals": {
+    "monolith_health": "UP",
+    "gateway_health": "UP",
+    "account_service_health": "UP",
+    "prometheus_targets": [
+      {
+        "job": "banking-monolith",
+        "health": "up"
+      }
+    ],
+    "prometheus_monolith_requests_by_status": {
+      "200": 82.0,
+      "201": 15.0
+    }
+  }
+}

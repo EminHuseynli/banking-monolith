@@ -10,8 +10,8 @@ monolith and the service.
 | Condition | Schema | Forward copy at cut-over | Service-era writes | Status |
 |---|---|---|---|---|
 | **C0** (control) | shared `public.accounts` | – | yes | **done**: 1 manual + 3 automated runs |
-| C1a | separate `account_schema.accounts` | yes | no | pending |
-| C1b | separate `account_schema.accounts` | yes | yes | pending |
+| C1a | separate `account_schema.accounts` | yes | no | **done**: 1 manual + 3 automated runs |
+| C1b | separate `account_schema.accounts` | yes | yes | **done**: 1 manual + 3 automated runs |
 
 C0 checks that the switching mechanism alone loses nothing. C1a checks whether schema
 separation plus the forward copy loses anything on its own. C1b checks whether writes
@@ -84,10 +84,24 @@ Each condition is run **once manually** in a four-pane terminal (for screenshots
 
 | Pane | Purpose |
 |---|---|
-| top left (PowerShell) | container state, monolith health via Nginx, ERROR/WARN counter |
-| top right (Git Bash) | `switch-blue-green.sh`, `nginx -T` |
-| bottom left (PowerShell) | client requests, with the HTTP status of every call |
+| top left (PowerShell) | container state, monolith health via Nginx, ERROR/WARN counter (`scripts/health-loop.ps1`) |
+| top right (Git Bash) | `forward-copy.sql` (C1), `switch-blue-green.sh`, `nginx -T` |
+| bottom left (PowerShell) | client requests, with the HTTP status of every call (`Call` / `Login` from `scripts/client.ps1`) |
 | bottom right (psql) | the actual contents of the accounts table(s) |
+
+In C1 the psql pane shows both tables side by side:
+
+```sql
+SELECT 'public' s, id, account_number, balance, status, user_id FROM public.accounts
+UNION ALL
+SELECT 'account_schema', id, account_number, balance, status, user_id FROM account_schema.accounts
+ORDER BY 1 DESC, 2;
+```
+
+The C1 baseline of the ERROR/WARN counter is 1 / 11, all from startup. The one "ERROR"
+is a Spring Security WARN line that ends in "...logging level ... to ERROR". C0 has
+WARN 9; in C1 account-service creates its own table and logs two more "constraint ...
+does not exist, skipping" warnings.
 
 ## Results
 
@@ -133,9 +147,105 @@ Notes on the manual run:
   screenshot. Their effect is in `results/manual/C0-run1/db-final.txt`: 9 accounts,
   and transaction 6 "deposit by service-era id" on account 7.
 
-### C1a, C1b
+### C1a: separate schema, no service-era writes
 
-Pending.
+| | Manual (1) | Automated (3) |
+|---|---|---|
+| Forward copy, switch to blue, rollback exit codes | 0, 0, 0 | 0, 0, 0 (3/3) |
+| Traffic on the service during the service era | yes | yes (3/3) |
+| Monolith health, Prometheus target | UP, up | UP, up (3/3) |
+| New ERROR / WARN lines after rollback | 0 / 0 | 0 / 0 in all four containers (3/3) |
+| 4xx / 5xx after rollback | 0 / 0 | 0 / 0 (3/3) |
+| Seed accounts and balances after rollback | unchanged | unchanged (3/3) |
+| Monolith's next account number | `ACC-000007`, nothing to clash with | `ACC-000007` (3/3) |
+| Rows only in `account_schema` | 0 | 0 (3/3) |
+
+**Separating the schema and copying the data at cut-over loses nothing on its own.**
+Whatever goes wrong in C1b is caused by the writes made after the separation.
+
+Manual run:
+
+| | |
+|---|---|
+| **Clean start** (16:48 UTC): C1 code, 6 containers up, health UP, baseline ERROR 1 / WARN 11 | ![clean start](results/manual/C1a-run1/images/1-clean-start.png) |
+| **Service era** (switch to blue at 16:53:17, exit 0): forward copy `INSERT 0 6`, Nginx sends `/api/accounts` to the gateway, `served by: ACCOUNT-SERVICE`, the same 6 accounts in both schemas (12 rows) | ![service era](results/manual/C1a-run1/images/2-service-era.png) |
+| **After rollback** (17:21:54, exit 0): Nginx sends everything to the monolith, `served by: MONOLITH`, all accounts unchanged, u2's new account is `ACC-000007` (201); `public` 7 rows, `account_schema` 6 rows, counters unchanged | ![after rollback](results/manual/C1a-run1/images/3-after-rollback.png) |
+
+More screenshots are in `results/manual/C1a-run1/images/detail/`. The Prometheus
+screenshot there (`prometheus-tab-not-refreshed.png`) shows exactly the same values as
+the C1b one (`1.961s ago`): the browser tab was not reloaded, so it is not evidence for
+this run. The target state after this rollback comes from the Prometheus API
+(`prometheus-targets.json`, captured 17:28 UTC: `banking-monolith` up).
+
+### C1b: separate schema, service-era writes
+
+| | Manual (1) | Automated (3) |
+|---|---|---|
+| Forward copy, switch to blue, rollback exit codes | 0, 0, 0 | 0, 0, 0 (3/3) |
+| Monolith health, Prometheus target | UP, up | UP, up (3/3) |
+| New ERROR / WARN lines after rollback | 0 / 0 | 0 / 0 in all four containers (3/3) |
+| 5xx after rollback | 0 | 0 (3/3) |
+| **Service-era writes visible after rollback** | **0/3** | **0/3** (3/3) |
+| Balance of X by its service-era id | 404 | 404 (3/3) |
+| Deposit into the closed account Z | **201, accepted** | 201 (3/3) |
+| Monolith's next account number | **`ACC-000007`, X's number, given to u2** | same (3/3) |
+| Deposit by the service-era id of X | **201, lands in u2's account** | u2's account (3/3) |
+| Rows only in `account_schema` / status differs | 2 (X, Y) / 1 (Z) | 2 / 1 (3/3) |
+
+**In 4 runs out of 4, every write made through account-service was missing after the
+rollback, and every signal stayed green.** The rollback script, health, Prometheus,
+HTTP status codes and logs all report a healthy system. The only trace is one 404 on
+X's balance, which looks like any other "not found".
+
+What the loss leads to:
+
+- **A closed account comes back.** Z's closure exists only in `account_schema`; the
+  monolith sees Z as `ACTIVE` and takes money into it.
+- **Ids and account numbers are handed out twice.** The `public` sequence is still at 6,
+  so the monolith gives u2 id 7 and `ACC-000007`, which the service had already given to
+  u1's X.
+- **Money goes to the wrong customer.** The monolith's deposit does not check who owns
+  the account. u1 deposits into id 7, the id it got from the service, gets 201, and the
+  money lands in u2's new account.
+
+The writes are not destroyed: they are still in `account_schema.accounts`. The monolith
+never reads that table, and the rollback only switches traffic; nothing copies data back.
+
+Manual run (14 Oct 2026, times in UTC; the terminal clocks show UTC+4):
+
+| | |
+|---|---|
+| **Seeded, before the forward copy**: 6 containers up, health UP, ERROR 1 / WARN 11; `public.accounts` 6 rows (the syntax error above the table is a mis-pasted query, re-run below it) | ![seeded](results/manual/C1b-run1/images/1-seeded-before-forward-copy.png) |
+| **Forward copy and switch to blue** (16:08:39, exit 0): Nginx sends `/api/accounts` to the gateway, `served by: ACCOUNT-SERVICE`, both schemas hold the same 6 accounts (12 rows) | ![switch to blue](results/manual/C1b-run1/images/2-forward-copy-and-switch-to-blue.png) |
+| **Service era**: X = 7, Y = 8, Z = 6 `CLOSED`, all through account-service. `account_schema` has 8 rows and Z `CLOSED`; `public` still has 6 rows and Z `ACTIVE`. Counters unchanged | ![service-era writes](results/manual/C1b-run1/images/3-service-era-writes.png) |
+| **After rollback** (16:23:06, exit 0): `served by: MONOLITH`, every call 200, X and Y gone, Z `ACTIVE` again; health UP, counters unchanged | ![after rollback](results/manual/C1b-run1/images/4-after-rollback.png) |
+| **Consequences**: X's balance 404; deposit into closed Z 201; u2's new account `ACC-000007`; u1's deposit by id 7 201. `public` now has Z with 10.0000 and id 7 (u2) with 5.0000 | ![consequences](results/manual/C1b-run1/images/5-consequences.png) |
+| **Prometheus** after rollback: `banking-monolith` 1/1 up | ![prometheus](results/manual/C1b-run1/images/6-prometheus-after-rollback.png) |
+
+Close-ups of the bottom-left pane (seed requests, service-era writes, the views after
+rollback, the four consequence calls) are in `results/manual/C1b-run1/images/detail/`.
+After the rollback the monolith, account-service and gateway wrote no log lines at all
+(`logs-monolith-after-rollback.txt` is empty); Nginx logged 192× 200, 3× 201 and 1× 404.
+`db-final.txt` holds both account tables and the transactions: transaction 6 went into
+closed account 6, transaction 7 into u2's account 7.
+
+### All conditions
+
+| | C0 | C1a | C1b |
+|---|---|---|---|
+| Runs (manual + automated) | 1 + 3 | 1 + 3 | 1 + 3 |
+| Rollback exit code, health, Prometheus | 0, UP, up | 0, UP, up | 0, UP, up |
+| New ERROR / WARN, 5xx after rollback | 0 | 0 | 0 |
+| **Service-era writes visible** | **3/3** | – (none made) | **0/3** |
+| Deposit into the closed account | 400, rejected | – | **201, accepted** |
+| Monolith's next account number | `ACC-000009` | `ACC-000007` | **`ACC-000007`, reused** |
+| Deposit by a service-era id | lands with its owner | – | **lands with another customer** |
+
+C0 shows that the switching mechanism loses nothing; C1a shows that the schema
+separation and the forward copy lose nothing. In C1b the only difference is writes made
+after the separation, and all of them are lost silently. The signals used to decide
+whether a rollback worked (exit code, health, Prometheus, status codes, logs) measure
+whether the system is up, not whether its data is complete.
 
 ## Files
 
@@ -143,15 +253,21 @@ Pending.
 experiment/
 ├── docker-compose.yml        one PostgreSQL, monolith, account-service, api-gateway, nginx, prometheus
 ├── nginx/                    nginx.monolith.conf, nginx.blue.conf (nginx.conf is generated)
-├── scripts/switch-blue-green.sh
+├── scripts/
+│   ├── switch-blue-green.sh
+│   ├── health-loop.ps1       manual runs: top-left pane
+│   └── client.ps1            manual runs: Call / Login helpers for the bottom-left pane
 ├── sql/forward-copy.sql      C1 cut-over copy (+ init-schemas.sql on c1-schema-split)
 ├── run.sh                    one automated run
 ├── harness/rollback.py       client and verifier (runs in a python:3.12-slim container)
 └── results/
     ├── summary.md            one row per automated run
-    ├── C0/run1..3/           http.jsonl (every request and response), summary.json,
+    ├── C0/ C1a/ C1b/run1..3/ http.jsonl (every request and response), summary.json,
     │                         meta.env, logs, DB snapshot, switch script output
-    └── manual/C0-run1/       logs, db-final.txt, prometheus-targets.json, images/
+    └── manual/
+        ├── C0-run1/          logs, db-final.txt, prometheus-targets.json, images/
+        └── C1a-run1/ C1b-run1/  the same, plus nginx-after-rollback.conf,
+                              prometheus-requests-by-status.json, images/detail/
 ```
 
 ## Reproduce

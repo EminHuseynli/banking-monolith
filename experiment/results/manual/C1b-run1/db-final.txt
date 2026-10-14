@@ -1,0 +1,34 @@
+ id | account_number | account_type | balance  |         created_at         | status | user_id 
+----+----------------+--------------+----------+----------------------------+--------+---------
+  1 | ACC-000001     | CHECKING     | 700.0000 | 2026-10-14 15:57:42.865041 | ACTIVE |       1
+  2 | ACC-000002     | SAVINGS      |   0.0000 | 2026-10-14 15:57:43.009021 | ACTIVE |       1
+  3 | ACC-000003     | CHECKING     | 700.0000 | 2026-10-14 15:57:43.087659 | ACTIVE |       2
+  4 | ACC-000004     | SAVINGS      |   0.0000 | 2026-10-14 15:57:43.163136 | ACTIVE |       2
+  5 | ACC-000005     | CHECKING     | 250.0000 | 2026-10-14 15:57:43.231539 | ACTIVE |       3
+  6 | ACC-000006     | SAVINGS      |  10.0000 | 2026-10-14 15:57:43.30435  | ACTIVE |       3
+  7 | ACC-000007     | CHECKING     |   5.0000 | 2026-10-14 16:30:18.480715 | ACTIVE |       2
+(7 rows)
+
+ id | account_number | account_type | balance  |         created_at         | status | user_id 
+----+----------------+--------------+----------+----------------------------+--------+---------
+  1 | ACC-000001     | CHECKING     | 700.0000 | 2026-10-14 15:57:42.865041 | ACTIVE |       1
+  2 | ACC-000002     | SAVINGS      |   0.0000 | 2026-10-14 15:57:43.009021 | ACTIVE |       1
+  3 | ACC-000003     | CHECKING     | 700.0000 | 2026-10-14 15:57:43.087659 | ACTIVE |       2
+  4 | ACC-000004     | SAVINGS      |   0.0000 | 2026-10-14 15:57:43.163136 | ACTIVE |       2
+  5 | ACC-000005     | CHECKING     | 250.0000 | 2026-10-14 15:57:43.231539 | ACTIVE |       3
+  6 | ACC-000006     | SAVINGS      |   0.0000 | 2026-10-14 15:57:43.30435  | CLOSED |       3
+  7 | ACC-000007     | SAVINGS      |   0.0000 | 2026-10-14 16:15:23.230276 | ACTIVE |       1
+  8 | ACC-000008     | CHECKING     |   0.0000 | 2026-10-14 16:15:37.556967 | ACTIVE |       2
+(8 rows)
+
+ id |  amount   |         created_at         |         description         | status  | transaction_type | source_account_id | target_account_id 
+----+-----------+----------------------------+-----------------------------+---------+------------------+-------------------+-------------------
+  1 | 1000.0000 | 2026-10-14 15:58:19.312103 | seed                        | SUCCESS | DEPOSIT          |                 1 |                  
+  2 |  500.0000 | 2026-10-14 15:58:36.405118 | seed                        | SUCCESS | DEPOSIT          |                 3 |                  
+  3 |  250.0000 | 2026-10-14 15:58:48.617515 | seed                        | SUCCESS | DEPOSIT          |                 5 |                  
+  4 |  100.0000 | 2026-10-14 15:59:00.273401 | seed                        | SUCCESS | WITHDRAWAL       |                 1 |                  
+  5 |  200.0000 | 2026-10-14 15:59:11.044183 | seed                        | SUCCESS | TRANSFER         |                 1 |                 3
+  6 |   10.0000 | 2026-10-14 16:29:44.916547 | deposit into closed account | SUCCESS | DEPOSIT          |                 6 |                  
+  7 |    5.0000 | 2026-10-14 16:30:56.380133 | deposit by service-era id   | SUCCESS | DEPOSIT          |                 7 |                  
+(7 rows)
+

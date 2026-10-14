@@ -1,0 +1,14 @@
+BEGIN
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+COMMIT
+     schema     | accounts 
+----------------+----------
+ public         |        6
+ account_schema |        6
+(2 rows)
+
