@@ -18,6 +18,7 @@ function global:Call($Method, $Path, $User, $Body) {
   Write-Host "`n$Method $Path  as $User  -> $code" -ForegroundColor $color
   $global:Last = if ($content) { $content | ConvertFrom-Json } else { $null }
   if ($Last -and $Last[0].accountNumber) { $Last | Format-Table id,accountNumber,accountType,balance,status,userId -AutoSize | Out-String | Write-Host }
+  elseif ($Last -and $Last[0].transactionType) { $Last | Format-Table id,transactionType,amount,sourceAccountId,targetAccountId,description -AutoSize | Out-String | Write-Host }
   elseif ($Last) { $Last | Format-List | Out-String | Write-Host }
 }
 function global:Login($User) { Call POST /api/auth/login $null @{email="$User@exp.test"; password="secret123"}; $T[$User] = $Last.token }
