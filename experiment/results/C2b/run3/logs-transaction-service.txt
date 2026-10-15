@@ -1,0 +1,1 @@
+transaction-service-1  | 2026-10-15T19:47:05.066Z DEBUG 1 --- [transaction-service] [nio-8083-exec-5] c.b.t.messaging.NotificationPublisher    : Published notification event for userId=1

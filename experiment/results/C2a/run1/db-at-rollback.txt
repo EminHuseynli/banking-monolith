@@ -1,0 +1,44 @@
+ id | account_number | account_type | balance  |         created_at         | status | user_id 
+----+----------------+--------------+----------+----------------------------+--------+---------
+  1 | ACC-000001     | CHECKING     | 700.0000 | 2026-10-15 18:24:58.397837 | ACTIVE |       1
+  2 | ACC-000002     | SAVINGS      |   0.0000 | 2026-10-15 18:24:58.55286  | ACTIVE |       1
+  3 | ACC-000003     | CHECKING     | 700.0000 | 2026-10-15 18:24:58.646561 | ACTIVE |       2
+  4 | ACC-000004     | SAVINGS      |   0.0000 | 2026-10-15 18:24:58.741124 | ACTIVE |       2
+  5 | ACC-000005     | CHECKING     | 250.0000 | 2026-10-15 18:24:58.840129 | ACTIVE |       3
+  6 | ACC-000006     | SAVINGS      |   0.0000 | 2026-10-15 18:24:58.934402 | ACTIVE |       3
+(6 rows)
+
+ id | account_number | account_type | balance  |         created_at         | status | user_id 
+----+----------------+--------------+----------+----------------------------+--------+---------
+  1 | ACC-000001     | CHECKING     | 850.0000 | 2026-10-15 18:24:58.397837 | ACTIVE |       1
+  2 | ACC-000002     | SAVINGS      |   0.0000 | 2026-10-15 18:24:58.55286  | ACTIVE |       1
+  3 | ACC-000003     | CHECKING     | 600.0000 | 2026-10-15 18:24:58.646561 | ACTIVE |       2
+  4 | ACC-000004     | SAVINGS      |   0.0000 | 2026-10-15 18:24:58.741124 | ACTIVE |       2
+  5 | ACC-000005     | CHECKING     | 400.0000 | 2026-10-15 18:24:58.840129 | ACTIVE |       3
+  6 | ACC-000006     | SAVINGS      |   0.0000 | 2026-10-15 18:24:58.934402 | CLOSED |       3
+  7 | ACC-000007     | SAVINGS      |  50.0000 | 2026-10-15 18:25:12.68776  | ACTIVE |       1
+  8 | ACC-000008     | CHECKING     |   0.0000 | 2026-10-15 18:25:12.862169 | ACTIVE |       2
+(8 rows)
+
+ id |  amount   |         created_at         | description | status  | transaction_type | source_account_id | target_account_id 
+----+-----------+----------------------------+-------------+---------+------------------+-------------------+-------------------
+  1 | 1000.0000 | 2026-10-15 18:24:59.247029 | seed        | SUCCESS | DEPOSIT          |                 1 |                  
+  2 |  500.0000 | 2026-10-15 18:24:59.420511 | seed        | SUCCESS | DEPOSIT          |                 3 |                  
+  3 |  250.0000 | 2026-10-15 18:24:59.499008 | seed        | SUCCESS | DEPOSIT          |                 5 |                  
+  4 |  100.0000 | 2026-10-15 18:24:59.663919 | seed        | SUCCESS | WITHDRAWAL       |                 1 |                  
+  5 |  200.0000 | 2026-10-15 18:24:59.779255 | seed        | SUCCESS | TRANSFER         |                 1 |                 3
+(5 rows)
+
+ id |  amount   |         created_at         |       description        | source_account_id | status  | target_account_id | transaction_type 
+----+-----------+----------------------------+--------------------------+-------------------+---------+-------------------+------------------
+  1 | 1000.0000 | 2026-10-15 18:24:59.247029 | seed                     |                 1 | SUCCESS |                   | DEPOSIT
+  2 |  500.0000 | 2026-10-15 18:24:59.420511 | seed                     |                 3 | SUCCESS |                   | DEPOSIT
+  3 |  250.0000 | 2026-10-15 18:24:59.499008 | seed                     |                 5 | SUCCESS |                   | DEPOSIT
+  4 |  100.0000 | 2026-10-15 18:24:59.663919 | seed                     |                 1 | SUCCESS |                   | WITHDRAWAL
+  5 |  200.0000 | 2026-10-15 18:24:59.779255 | seed                     |                 1 | SUCCESS |                 3 | TRANSFER
+  6 |  300.0000 | 2026-10-15 18:25:13.66536  | service era              |                 1 | SUCCESS |                   | DEPOSIT
+  7 |  100.0000 | 2026-10-15 18:25:13.96945  | service era              |                 3 | SUCCESS |                   | WITHDRAWAL
+  8 |  150.0000 | 2026-10-15 18:25:14.195817 | service era              |                 1 | SUCCESS |                 5 | TRANSFER
+  9 |   50.0000 | 2026-10-15 18:25:14.45782  | service era, new account |                 7 | SUCCESS |                   | DEPOSIT
+(9 rows)
+

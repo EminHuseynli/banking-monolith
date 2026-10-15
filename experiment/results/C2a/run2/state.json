@@ -1,0 +1,529 @@
+{
+  "users": {
+    "u1": {
+      "email": "u1.c2a-run2@exp.test",
+      "id": 1,
+      "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1MS5jMmEtcnVuMkBleHAudGVzdCIsInVzZXJJZCI6MSwiaWF0IjoxNzkyMDg5MTc1LCJleHAiOjE3OTIxNzU1NzV9.p0_cBHuIGHKeTpC8x_ie1ekv5OTvmScMKHGCS39b-0MP4thWLjwP3tmFuCcZoYm4",
+      "login_status": {
+        "seed": 200,
+        "forward": 200,
+        "verify": 200
+      }
+    },
+    "u2": {
+      "email": "u2.c2a-run2@exp.test",
+      "id": 2,
+      "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1Mi5jMmEtcnVuMkBleHAudGVzdCIsInVzZXJJZCI6MiwiaWF0IjoxNzkyMDg5MTc2LCJleHAiOjE3OTIxNzU1NzZ9.yxqACU8yNE9zguAUzrIfyKKi6T6sXTkqwX7QaQqvV6SJzU2YjgbqXZA-o_K1oQ2v",
+      "login_status": {
+        "seed": 200,
+        "forward": 200,
+        "verify": 200
+      }
+    },
+    "u3": {
+      "email": "u3.c2a-run2@exp.test",
+      "id": 3,
+      "token": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1My5jMmEtcnVuMkBleHAudGVzdCIsInVzZXJJZCI6MywiaWF0IjoxNzkyMDg5MTc2LCJleHAiOjE3OTIxNzU1NzZ9.S1APpO25gZPfDgCP0wEPpIEyK6WdTAqQmunYrxUAJgsFBWASL34Bqhg6lNbFXWOM",
+      "login_status": {
+        "seed": 200,
+        "forward": 200,
+        "verify": 200
+      }
+    }
+  },
+  "seed_accounts": {
+    "u1": {
+      "CHECKING": {
+        "id": 1,
+        "accountNumber": "ACC-000001",
+        "accountType": "CHECKING",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 1
+      },
+      "SAVINGS": {
+        "id": 2,
+        "accountNumber": "ACC-000002",
+        "accountType": "SAVINGS",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 1
+      }
+    },
+    "u2": {
+      "CHECKING": {
+        "id": 3,
+        "accountNumber": "ACC-000003",
+        "accountType": "CHECKING",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 2
+      },
+      "SAVINGS": {
+        "id": 4,
+        "accountNumber": "ACC-000004",
+        "accountType": "SAVINGS",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 2
+      }
+    },
+    "u3": {
+      "CHECKING": {
+        "id": 5,
+        "accountNumber": "ACC-000005",
+        "accountType": "CHECKING",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 3
+      },
+      "SAVINGS": {
+        "id": 6,
+        "accountNumber": "ACC-000006",
+        "accountType": "SAVINGS",
+        "balance": 0.0,
+        "status": "ACTIVE",
+        "userId": 3
+      }
+    }
+  },
+  "view_seed": {
+    "u1": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 2,
+          "accountNumber": "ACC-000002",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 1,
+          "accountNumber": "ACC-000001",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 1
+        }
+      ]
+    },
+    "u2": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 4,
+          "accountNumber": "ACC-000004",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 3,
+          "accountNumber": "ACC-000003",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 2
+        }
+      ]
+    },
+    "u3": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 6,
+          "accountNumber": "ACC-000006",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 3
+        },
+        {
+          "id": 5,
+          "accountNumber": "ACC-000005",
+          "accountType": "CHECKING",
+          "balance": 250.0,
+          "status": "ACTIVE",
+          "userId": 3
+        }
+      ]
+    }
+  },
+  "view_forward": {
+    "u1": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 2,
+          "accountNumber": "ACC-000002",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 1,
+          "accountNumber": "ACC-000001",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 1
+        }
+      ]
+    },
+    "u2": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 4,
+          "accountNumber": "ACC-000004",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 3,
+          "accountNumber": "ACC-000003",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 2
+        }
+      ]
+    },
+    "u3": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 6,
+          "accountNumber": "ACC-000006",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 3
+        },
+        {
+          "id": 5,
+          "accountNumber": "ACC-000005",
+          "accountType": "CHECKING",
+          "balance": 250.0,
+          "status": "ACTIVE",
+          "userId": 3
+        }
+      ]
+    }
+  },
+  "forward_served_by": [
+    "account-service"
+  ],
+  "forward_consistent": true,
+  "workload": {
+    "X": {
+      "owner": "u1",
+      "http": 201,
+      "id": 7,
+      "accountNumber": "ACC-000007",
+      "accountType": "SAVINGS",
+      "balance": 0.0,
+      "status": "ACTIVE",
+      "userId": 1
+    },
+    "Y": {
+      "owner": "u2",
+      "http": 201,
+      "id": 8,
+      "accountNumber": "ACC-000008",
+      "accountType": "CHECKING",
+      "balance": 0.0,
+      "status": "ACTIVE",
+      "userId": 2
+    },
+    "Z": {
+      "owner": "u3",
+      "http": 200,
+      "id": 6,
+      "closedStatus": "CLOSED"
+    }
+  },
+  "money": {
+    "M1_deposit_u1c_300": {
+      "http": 201,
+      "id": 6
+    },
+    "M2_withdraw_u2c_100": {
+      "http": 201,
+      "id": 7
+    },
+    "M3_transfer_u1c_u3c_150": {
+      "http": 201,
+      "id": 8
+    },
+    "M4_deposit_X_50": {
+      "http": 201,
+      "id": 9
+    }
+  },
+  "service_era_tx_ids": [
+    6,
+    7,
+    8,
+    9
+  ],
+  "history_u1c_service": {
+    "http": 200,
+    "ids": [
+      1,
+      4,
+      5,
+      6,
+      8
+    ]
+  },
+  "notifications_delivered_in_service_era": 0,
+  "view_workload": {
+    "u1": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 2,
+          "accountNumber": "ACC-000002",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 1,
+          "accountNumber": "ACC-000001",
+          "accountType": "CHECKING",
+          "balance": 850.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 7,
+          "accountNumber": "ACC-000007",
+          "accountType": "SAVINGS",
+          "balance": 50.0,
+          "status": "ACTIVE",
+          "userId": 1
+        }
+      ]
+    },
+    "u2": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 4,
+          "accountNumber": "ACC-000004",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 8,
+          "accountNumber": "ACC-000008",
+          "accountType": "CHECKING",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 3,
+          "accountNumber": "ACC-000003",
+          "accountType": "CHECKING",
+          "balance": 600.0,
+          "status": "ACTIVE",
+          "userId": 2
+        }
+      ]
+    },
+    "u3": {
+      "status": 200,
+      "served_by": "account-service",
+      "accounts": [
+        {
+          "id": 6,
+          "accountNumber": "ACC-000006",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "CLOSED",
+          "userId": 3
+        },
+        {
+          "id": 5,
+          "accountNumber": "ACC-000005",
+          "accountType": "CHECKING",
+          "balance": 400.0,
+          "status": "ACTIVE",
+          "userId": 3
+        }
+      ]
+    }
+  },
+  "view_rollback": {
+    "u1": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 2,
+          "accountNumber": "ACC-000002",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 1
+        },
+        {
+          "id": 1,
+          "accountNumber": "ACC-000001",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 1
+        }
+      ]
+    },
+    "u2": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 4,
+          "accountNumber": "ACC-000004",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 2
+        },
+        {
+          "id": 3,
+          "accountNumber": "ACC-000003",
+          "accountType": "CHECKING",
+          "balance": 700.0,
+          "status": "ACTIVE",
+          "userId": 2
+        }
+      ]
+    },
+    "u3": {
+      "status": 200,
+      "served_by": "monolith",
+      "accounts": [
+        {
+          "id": 6,
+          "accountNumber": "ACC-000006",
+          "accountType": "SAVINGS",
+          "balance": 0.0,
+          "status": "ACTIVE",
+          "userId": 3
+        },
+        {
+          "id": 5,
+          "accountNumber": "ACC-000005",
+          "accountType": "CHECKING",
+          "balance": 250.0,
+          "status": "ACTIVE",
+          "userId": 3
+        }
+      ]
+    }
+  },
+  "verify": {
+    "logins_ok": true,
+    "served_by": [
+      "monolith"
+    ],
+    "seed_balances_intact": true,
+    "balances_wrong": 3,
+    "balance_diffs": [
+      {
+        "user": "u1",
+        "id": 1,
+        "a": 850.0,
+        "b": 700.0
+      },
+      {
+        "user": "u2",
+        "id": 3,
+        "a": 600.0,
+        "b": 700.0
+      },
+      {
+        "user": "u3",
+        "id": 5,
+        "a": 400.0,
+        "b": 250.0
+      }
+    ],
+    "money_diff_total": 400.0,
+    "history_status": 200,
+    "service_era_tx_on_u1c": 2,
+    "service_era_tx_visible": 0,
+    "history_ids_now": [
+      1,
+      4,
+      5
+    ],
+    "X_visible": false,
+    "Y_visible": false,
+    "Z_status_after_rollback": "ACTIVE",
+    "service_era_writes": 3,
+    "service_era_writes_visible": 0,
+    "X_balance_status": 404,
+    "deposit_into_closed_account_status": 201,
+    "closed_account_accepts_money": true,
+    "new_account": {
+      "http": 201,
+      "id": 7,
+      "accountNumber": "ACC-000007",
+      "accountType": "CHECKING",
+      "balance": 0.0,
+      "status": "ACTIVE",
+      "userId": 2
+    },
+    "account_number_reused": true,
+    "reused_from": "X (owner u1)",
+    "reused_across_owners": true,
+    "deposit_by_service_era_id_status": 201,
+    "deposit_landed_in": "u2",
+    "misdirected_deposit": true,
+    "withdraw_all_shown": {
+      "http": 201,
+      "shown": 700.0,
+      "held_at_end_of_service_era": 600.0
+    },
+    "overdraw": true,
+    "overdraw_amount": 100.0
+  },
+  "signals": {
+    "monolith_health": "UP",
+    "gateway_health": "UP",
+    "account_service_health": "UP",
+    "transaction_service_health": "UP",
+    "prometheus_targets": [
+      {
+        "job": "banking-monolith",
+        "health": "up"
+      }
+    ],
+    "prometheus_monolith_requests_by_status": {
+      "200": 98.0,
+      "201": 18.0,
+      "404": 1.0
+    }
+  }
+}

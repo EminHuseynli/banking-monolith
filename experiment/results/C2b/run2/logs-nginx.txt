@@ -1,0 +1,45 @@
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: signal 1 (SIGHUP) received from 42, reconfiguring
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: reconfiguring
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: using the "epoll" event method
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: start worker processes
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: start worker process 48
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: start worker process 49
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: start worker process 50
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: start worker process 51
+nginx-1  | 2026/10/15 19:39:50 [notice] 38#38: gracefully shutting down
+nginx-1  | 2026/10/15 19:39:50 [notice] 38#38: exiting
+nginx-1  | 2026/10/15 19:39:50 [notice] 39#39: gracefully shutting down
+nginx-1  | 2026/10/15 19:39:50 [notice] 40#40: gracefully shutting down
+nginx-1  | 2026/10/15 19:39:50 [notice] 39#39: exiting
+nginx-1  | 2026/10/15 19:39:50 [notice] 41#41: gracefully shutting down
+nginx-1  | 2026/10/15 19:39:50 [notice] 40#40: exiting
+nginx-1  | 2026/10/15 19:39:50 [notice] 41#41: exiting
+nginx-1  | 2026/10/15 19:39:50 [notice] 38#38: exit
+nginx-1  | 2026/10/15 19:39:50 [notice] 41#41: exit
+nginx-1  | 2026/10/15 19:39:50 [notice] 40#40: exit
+nginx-1  | 2026/10/15 19:39:50 [notice] 39#39: exit
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: signal 17 (SIGCHLD) received from 39
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: worker process 39 exited with code 0
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: worker process 40 exited with code 0
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: signal 17 (SIGCHLD) received from 41
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: worker process 41 exited with code 0
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: signal 17 (SIGCHLD) received from 38
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: worker process 38 exited with code 0
+nginx-1  | 2026/10/15 19:39:50 [notice] 1#1: signal 29 (SIGIO) received
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:05 +0000] "POST /api/auth/login HTTP/1.1" 200 254 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:05 +0000] "POST /api/auth/login HTTP/1.1" 200 254 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "POST /api/auth/login HTTP/1.1" 200 254 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "GET /api/accounts HTTP/1.1" 200 463 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "GET /api/accounts HTTP/1.1" 200 464 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "GET /api/accounts HTTP/1.1" 200 314 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "GET /api/transactions/1/history HTTP/1.1" 200 552 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "POST /api/transactions/deposit HTTP/1.1" 201 220 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "GET /api/accounts HTTP/1.1" 200 463 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "GET /api/accounts HTTP/1.1" 200 464 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "GET /api/accounts HTTP/1.1" 200 314 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "POST /api/transactions/deposit HTTP/1.1" 404 102 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "POST /api/transactions/deposit HTTP/1.1" 201 217 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:40:06 +0000] "POST /api/transactions/withdraw HTTP/1.1" 201 220 "-" "Python-urllib/3.12" "-"
+nginx-1  | 172.18.0.10 - - [15/Oct/2026:19:45:09 +0000] "GET /actuator/health HTTP/1.1" 200 356 "-" "Python-urllib/3.12" "-"
