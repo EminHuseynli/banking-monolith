@@ -1,0 +1,71 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: transaction-service
+
+  cloud:
+    compatibility-verifier:
+      enabled: false
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/transaction_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:1234}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: 5672
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASS:guest}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, circuitbreakers, circuitbreakerevents
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      accountService:
+        # Kaç çağrı üzerinden hesaplanacak (COUNT_BASED sliding window)
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        # %50 hata oranı → CLOSED'dan OPEN'a geçer
+        failure-rate-threshold: 50
+        # OPEN kaldıktan 10 saniye sonra HALF-OPEN'a geçer
+        wait-duration-in-open-state: 10s
+        # HALF-OPEN'da kaç çağrı izin verilir (probe)
+        permitted-number-of-calls-in-half-open-state: 3
+        # 2 saniyeden yavaş çağrı = slow call (yavaş çağrılar da sayılır)
+        slow-call-duration-threshold: 2s
+        slow-call-rate-threshold: 50
+        # Actuator /health endpoint'inde görünür
+        register-health-indicator: true
+        # 4xx hatalar business logic hatası — servis failure değil, circuit'i tetiklememeli
+        ignore-exceptions:
+          - feign.FeignException$BadRequest
+          - feign.FeignException$NotFound
+
+account-service:
+  url: ${ACCOUNT_SERVICE_URL:http://localhost:8082}
+
+logging:
+  level:
+    com.banking.transactionservice: DEBUG
