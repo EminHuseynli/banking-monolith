@@ -1,0 +1,77 @@
+-- final state (after verify), manual C2a run 1, rollback at 2026-10-15T09:00:33Z
+== public.accounts
+ id | account_number | account_type | balance  |         created_at         | status | user_id 
+----+----------------+--------------+----------+----------------------------+--------+---------
+  1 | ACC-000001     | CHECKING     | 700.0000 | 2026-10-15 08:19:52.179811 | ACTIVE |       1
+  2 | ACC-000002     | SAVINGS      |   0.0000 | 2026-10-15 08:20:21.433404 | ACTIVE |       1
+  3 | ACC-000003     | CHECKING     |   0.0000 | 2026-10-15 08:20:27.512109 | ACTIVE |       2
+  4 | ACC-000004     | SAVINGS      |   0.0000 | 2026-10-15 08:20:34.474564 | ACTIVE |       2
+  5 | ACC-000005     | CHECKING     | 250.0000 | 2026-10-15 08:20:40.787478 | ACTIVE |       3
+  6 | ACC-000006     | SAVINGS      |  10.0000 | 2026-10-15 08:20:46.274907 | ACTIVE |       3
+  7 | ACC-000007     | CHECKING     |   5.0000 | 2026-10-15 09:10:34.314326 | ACTIVE |       2
+(7 rows)
+
+== account_schema.accounts
+ id | account_number | account_type | balance  |         created_at         | status | user_id 
+----+----------------+--------------+----------+----------------------------+--------+---------
+  1 | ACC-000001     | CHECKING     | 850.0000 | 2026-10-15 08:19:52.179811 | ACTIVE |       1
+  2 | ACC-000002     | SAVINGS      |   0.0000 | 2026-10-15 08:20:21.433404 | ACTIVE |       1
+  3 | ACC-000003     | CHECKING     | 600.0000 | 2026-10-15 08:20:27.512109 | ACTIVE |       2
+  4 | ACC-000004     | SAVINGS      |   0.0000 | 2026-10-15 08:20:34.474564 | ACTIVE |       2
+  5 | ACC-000005     | CHECKING     | 400.0000 | 2026-10-15 08:20:40.787478 | ACTIVE |       3
+  6 | ACC-000006     | SAVINGS      |   0.0000 | 2026-10-15 08:20:46.274907 | CLOSED |       3
+  7 | ACC-000007     | SAVINGS      |  50.0000 | 2026-10-15 08:43:35.229056 | ACTIVE |       1
+  8 | ACC-000008     | CHECKING     |   0.0000 | 2026-10-15 08:43:53.289217 | ACTIVE |       2
+(8 rows)
+
+== public.transactions
+ id |  amount   |         created_at         |             description             | status  | transaction_type | source_account_id | target_account_id 
+----+-----------+----------------------------+-------------------------------------+---------+------------------+-------------------+-------------------
+  1 | 1000.0000 | 2026-10-15 08:21:15.7413   | seed                                | SUCCESS | DEPOSIT          |                 1 |                  
+  2 |  500.0000 | 2026-10-15 08:21:31.827898 | seed                                | SUCCESS | DEPOSIT          |                 3 |                  
+  3 |  250.0000 | 2026-10-15 08:21:46.072535 | seed                                | SUCCESS | DEPOSIT          |                 5 |                  
+  4 |  100.0000 | 2026-10-15 08:21:58.162032 | seed                                | SUCCESS | WITHDRAWAL       |                 1 |                  
+  5 |  200.0000 | 2026-10-15 08:22:09.221301 | seed                                | SUCCESS | TRANSFER         |                 1 |                 3
+  6 |   10.0000 | 2026-10-15 09:10:11.108596 | verify: deposit into closed account | SUCCESS | DEPOSIT          |                 6 |                  
+  7 |    5.0000 | 2026-10-15 09:10:50.089031 | verify: deposit by service-era id   | SUCCESS | DEPOSIT          |                 7 |                  
+  8 |  700.0000 | 2026-10-15 09:11:19.269597 | verify: withdraw all shown          | SUCCESS | WITHDRAWAL       |                 3 |                  
+(8 rows)
+
+== transaction_schema.transactions
+ id |  amount   |         created_at         |       description        | source_account_id | status  | target_account_id | transaction_type 
+----+-----------+----------------------------+--------------------------+-------------------+---------+-------------------+------------------
+  1 | 1000.0000 | 2026-10-15 08:21:15.7413   | seed                     |                 1 | SUCCESS |                   | DEPOSIT
+  2 |  500.0000 | 2026-10-15 08:21:31.827898 | seed                     |                 3 | SUCCESS |                   | DEPOSIT
+  3 |  250.0000 | 2026-10-15 08:21:46.072535 | seed                     |                 5 | SUCCESS |                   | DEPOSIT
+  4 |  100.0000 | 2026-10-15 08:21:58.162032 | seed                     |                 1 | SUCCESS |                   | WITHDRAWAL
+  5 |  200.0000 | 2026-10-15 08:22:09.221301 | seed                     |                 1 | SUCCESS |                 3 | TRANSFER
+  6 |  300.0000 | 2026-10-15 08:45:00.43484  | service era              |                 1 | SUCCESS |                   | DEPOSIT
+  7 |  100.0000 | 2026-10-15 08:45:16.893337 | service era              |                 3 | SUCCESS |                   | WITHDRAWAL
+  8 |  150.0000 | 2026-10-15 08:45:28.941243 | service era              |                 1 | SUCCESS |                 5 | TRANSFER
+  9 |   50.0000 | 2026-10-15 08:45:38.683497 | service era, new account |                 7 | SUCCESS |                   | DEPOSIT
+(9 rows)
+
+== balances side by side
+ id | public_bal | service_bal | public_st | service_st 
+----+------------+-------------+-----------+------------
+  1 |   700.0000 |    850.0000 | ACTIVE    | ACTIVE
+  2 |     0.0000 |      0.0000 | ACTIVE    | ACTIVE
+  3 |     0.0000 |    600.0000 | ACTIVE    | ACTIVE
+  4 |     0.0000 |      0.0000 | ACTIVE    | ACTIVE
+  5 |   250.0000 |    400.0000 | ACTIVE    | ACTIVE
+  6 |    10.0000 |      0.0000 | ACTIVE    | CLOSED
+  7 |     5.0000 |     50.0000 | ACTIVE    | ACTIVE
+  8 |            |      0.0000 |           | ACTIVE
+(8 rows)
+
+== transaction ids used on both sides with different content
+ id | public_type | public_amount | service_type | service_amount 
+----+-------------+---------------+--------------+----------------
+  6 | DEPOSIT     |       10.0000 | DEPOSIT      |       300.0000
+  7 | DEPOSIT     |        5.0000 | WITHDRAWAL   |       100.0000
+  8 | WITHDRAWAL  |      700.0000 | TRANSFER     |       150.0000
+(3 rows)
+
+== notification.queue (unconsumed)
+name	messages
+notification.queue	5
