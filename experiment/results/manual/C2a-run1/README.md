@@ -2,7 +2,7 @@
 
 Code: tag `c2-transaction-split`. account-service and transaction-service each have their own
 schema. Money moves through the services in the service era, then all traffic is rolled back
-to the monolith. Times are UTC; the screenshots show local time (UTC+3).
+to the monolith. Times are UTC; the screenshots show local time (UTC+4).
 
 Windows Terminal panes: top left `scripts/health-loop.ps1`, top right Git Bash
 (`switch-blue-green.sh`), bottom left `scripts/client.ps1` (`Call`, `Login`), bottom right psql.
@@ -41,6 +41,7 @@ Windows Terminal panes: top left `scripts/health-loop.ps1`, top right Git Bash
 | `6-service-era-balances.png` | What users see at the end of the service era: 1 = 850, 3 = 600, 5 = 400, X = 50; Z CLOSED. |
 | `7-service-era-history.png` | History of account 1 now includes service-era transactions 8 and 6. |
 | `8-service-era-notifications-none-delivered.png` | u1's notifications (served by the monolith) end with the seed transfer. None of the service-era events arrived: transaction-service publishes them to RabbitMQ and nothing consumes the queue. |
+| `9-health-and-rabbitmq-queue-before-rollback.png` | Taken 08:59 UTC, just before the rollback: all containers running, health UP, 1 ERROR / 13 WARN (baseline), 5 notification events unconsumed. The same counts held after the rollback: the monolith wrote no log line at all after 09:00:33 (`logs-monolith-after-rollback.txt` is empty) and the queue still held 5 at the end (`db-final.txt`). |
 
 ### 3. Rollback and verification (`images/3-rollback-and-verify/`)
 
@@ -56,9 +57,8 @@ Windows Terminal panes: top left `scripts/health-loop.ps1`, top right Git Bash
 
 | File | Shows |
 |---|---|
-| `1-health-and-rabbitmq-queue-1h-after-rollback.png` | Taken 09:59 UTC, about an hour after the rollback: all containers running, health UP, still 1 ERROR / 13 WARN (baseline), 5 notification events unconsumed. |
-| `2-prometheus-targets.png` | Prometheus target `banking-monolith` UP (page reloaded). |
-| `3-prometheus-requests-by-status.png` | Monolith requests by status: 200, 201, one 404 (X's balance), one 403, no 5xx. The 403 is `POST /get_message_for_webview` from a browser extension (Grammarly) hitting `localhost` at 09:09:54; nginx logs it as 499, `uri="UNKNOWN"` in `prometheus-4xx-detail.json`. Not part of the experiment. |
+| `1-prometheus-targets.png` | Prometheus target `banking-monolith` UP (page reloaded). |
+| `2-prometheus-requests-by-status.png` | Monolith requests by status: 200, 201, one 404 (X's balance), one 403, no 5xx. The 403 is `POST /get_message_for_webview` from a browser extension (Grammarly) hitting `localhost` at 09:09:54; nginx logs it as 499, `uri="UNKNOWN"` in `prometheus-4xx-detail.json`. Not part of the experiment. |
 
 ## Files
 
