@@ -118,6 +118,10 @@ fi
 
 echo "== 6. verify through the monolith"
 harness verify
+if [ "$CODE" = C2 ]; then
+  # Transaction ids the monolith handed out again after the rollback (same id, different transaction)
+  echo "db_tx_ids_reused=$(psql_q 'SELECT count(*) FROM public.transactions p JOIN transaction_schema.transactions s ON s.id=p.id WHERE (p.transaction_type, p.amount, p.source_account_id) IS DISTINCT FROM (s.transaction_type, s.amount, s.source_account_id)')" >> "$META"
+fi
 
 echo "== 7. observe for ${WINDOW}s"
 sleep "$WINDOW"
