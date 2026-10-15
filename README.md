@@ -9,19 +9,44 @@
 
 ## Rollback-Loss Experiment
 
-**Question:** when a module has been extracted into a microservice and traffic is rolled back to the monolith with blue-green switching, are the writes made on the microservice silently lost?
+**Question:** when modules have been extracted into microservices and traffic is rolled back to the monolith with blue-green switching, are the writes made on the microservices silently lost?
 
-The account module is extracted into `account-service`, and Nginx switches `/api/accounts` between the monolith and the service. Each condition runs once manually (with screenshots) and three times automatically.
+In C0 and C1 the account module is extracted into `account-service`, and Nginx switches `/api/accounts`. In C2 the transaction module is extracted as well (`transaction-service`, which moves money through account-service over Feign), and Nginx also switches `/api/transactions`. Each condition runs once manually (with screenshots) and three times automatically.
 
-| Condition | Database | Writes on the service before rollback | Result |
+| Condition | Database | Writes on the services before rollback | Result |
 |---|---|---|---|
-| **C0** (control) | shared schema (`public.accounts`) | yes | **4/4 runs: all 3 service-era writes visible after rollback.** Exit code 0, health UP, Prometheus up, no new ERROR/WARN lines, no 5xx. |
-| C1a | separate schema (`account_schema`), data copied at cut-over | no | 4/4 runs: nothing lost. All signals green. |
-| C1b | separate schema (`account_schema`), data copied at cut-over | yes | **4/4 runs: 0 of 3 service-era writes visible after rollback.** A closed account takes deposits again, the monolith gives the service's account number to another customer, and a deposit by the old id lands in that customer's account. Exit code 0, health UP, Prometheus up, no new ERROR/WARN lines, no 5xx. |
+| **C0** (control) | shared schema (`public.accounts`) | accounts | **4/4 runs: all 3 service-era writes visible after rollback.** Exit code 0, health UP, Prometheus up, no new ERROR/WARN lines, no 5xx. |
+| C1a | separate schema (`account_schema`), data copied at cut-over | none | 4/4 runs: nothing lost. All signals green. |
+| C1b | separate schema (`account_schema`), data copied at cut-over | accounts | **4/4 runs: 0 of 3 service-era writes visible after rollback.** A closed account takes deposits again, the monolith gives the service's account number to another customer, and a deposit by the old id lands in that customer's account. Exit code 0, health UP, Prometheus up, no new ERROR/WARN lines, no 5xx. |
+| **C2a** | separate schemas (`account_schema`, `transaction_schema`), data copied at cut-over | accounts and money, then **full rollback** | **4/4 runs: 0 of 3 account writes and none of the service-era transactions visible; 3 balances wrong (400 in total).** Everything in C1b happens again, and a customer withdraws 100 more than the account held, because the monolith shows the balance from before the service era. Transaction ids 6–8 are handed out a second time. All signals green. |
+| **C2b** | same as C2a | accounts and money, then **only `/api/transactions` rolled back** | **4/4 runs: the account view (service) and the money (monolith) split apart.** A deposit is confirmed with 201 but never shows in the account view, an account the user sees cannot receive money (404), an account shown as closed can, and a customer withdraws 50 more than shown. Both sides keep accepting writes and drift further apart (sum gap 250 → 870). All signals green. |
 
-With a shared schema the switch is safe in both directions (C0), and separating the schema and copying the data loses nothing on its own (C1a). Once the service has written to its own schema, rolling back loses every one of those writes, and none of the signals used to judge the rollback notice (C1b).
+With a shared schema the switch is safe in both directions (C0), and separating the schema and copying the data loses nothing on its own (C1a). Once the services have written to their own schemas, a full rollback loses every one of those writes, including money (C1b, C2a), and a partial rollback leaves two live, disagreeing copies of the balances (C2b). None of the signals used to judge the rollback notice: they measure whether the system is up, not whether its data is complete or consistent.
+
+<img alt="C2a: after a full rollback the monolith shows old balances, reissues an account id to another customer, and lets u2 withdraw 700 from an account that held 600" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C2a-run1/images/3-rollback-and-verify/5-verify-id7-reuse-misdirected-deposit-overdraw.png?raw=true" />
+
+<img alt="C2b: 18 minutes after rolling back only /api/transactions, the monolith's balances (720 / 50 / 250) and the service's (850 / 600 / 400) have drifted apart while health stays UP" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C2b-run1/images/3-partial-rollback-and-verify/4-final-state-sides-keep-diverging.png?raw=true" />
+
+<details>
+<summary>C2a: the database at the moment of the full rollback</summary>
+
+<img alt="C2a: balances differ on three accounts, two accounts and four transactions exist only in the service schemas, sums 1650 vs 1900" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C2a-run1/images/3-rollback-and-verify/2-db-at-rollback-balances-sums-service-only-tx.png?raw=true" />
+
+</details>
+
+<details>
+<summary>C2b: a listed account rejects money, a closed one accepts it, and u2 withdraws more than shown</summary>
+
+<img alt="C2b: deposit into listed account X returns 404, deposit into closed account Z returns 201, u2 withdraws 650 from an account shown at 600" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C2b-run1/images/3-partial-rollback-and-verify/3-verify-X-404-closed-Z-deposit-overdraw.png?raw=true" />
+
+</details>
+
+<details>
+<summary>C1b: after rollback to the monolith, the service-era account writes are missing</summary>
 
 <img alt="C1b: after rollback to the monolith, the service-era writes are missing while every signal stays green" src="https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/results/manual/C1b-run1/images/4-after-rollback.png?raw=true" />
+
+</details>
 
 <details>
 <summary>C0 (control): the same rollback with a shared schema keeps every write</summary>
@@ -32,7 +57,7 @@ With a shared schema the switch is safe in both directions (C0), and separating 
 
 **→ Full method, reconstruction notes, screenshots and raw results: [experiment/README.md](https://github.com/EminHuseynli/banking-monolith/blob/experiment/rollback-loss/experiment/README.md)** on the [`experiment/rollback-loss`](https://github.com/EminHuseynli/banking-monolith/tree/experiment/rollback-loss) branch.
 
-> The experiment runs on a reconstruction of the thesis stage where the monolith and the extracted service ran side by side. It uses the monolith at `6c68e98` (the version that coexisted with the services), not the later code on `main`. Everything below this section describes `main`.
+> The experiment runs on a reconstruction of the thesis stage where the monolith and the extracted services ran side by side. It uses the monolith at `6c68e98` (the version that coexisted with the services), not the later code on `main`. Everything below this section describes `main`.
 
 
 ## Overview
