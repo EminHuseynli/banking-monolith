@@ -1,0 +1,1 @@
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"http_server_requests_seconds_count","application":"banking-monolith","error":"none","exception":"none","instance":"monolith:8080","job":"banking-monolith","method":"POST","outcome":"CLIENT_ERROR","status":"404","uri":"/api/transactions/deposit"},"value":[1792086858.243,"1"]}]}}
