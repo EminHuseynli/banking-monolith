@@ -1,4 +1,4 @@
-# Rollback-loss experiment: monolith + extracted account-service behind one Nginx.
+# Rollback-loss experiment: monolith + extracted account-service (C1) and transaction-service (C2) behind one Nginx.
 # Reconstruction of the thesis stage "account module extracted, monolith still running".
 # Monolith: this repo (6c68e98 + userId claim). Services: banking-microservice@4f077f2.
 # One PostgreSQL, one database (banking_db), as in thesis §3.2.
@@ -37,15 +37,37 @@ services:
     depends_on:
       - db
 
+  transaction-service:
+    build:
+      context: ../services
+      dockerfile: transaction-service/Dockerfile
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/banking_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: "1234"
+      ACCOUNT_SERVICE_URL: http://account-service:8082
+      RABBITMQ_HOST: rabbitmq
+    depends_on:
+      - db
+      - account-service
+      - rabbitmq
+
+  # transaction-service publishes notification events here (thesis: rabbitmq:3-management).
+  # notification-service is not extracted, so nothing consumes the queue.
+  rabbitmq:
+    image: rabbitmq:3-management
+
   api-gateway:
     build:
       context: ../services
       dockerfile: api-gateway/Dockerfile
     environment:
       ACCOUNT_SERVICE_URL: http://account-service:8082
+      TRANSACTION_SERVICE_URL: http://transaction-service:8083
       JWT_SECRET: ${JWT_SECRET:-dGhpcyBpcyBhIHZlcnkgbG9uZyBhbmQgc2VjdXJlIHNlY3JldCBrZXkgZm9yIGp3dA==}
     depends_on:
       - account-service
+      - transaction-service
 
   # switch-blue-green.sh copies nginx.<target>.conf over nginx/nginx.conf and reloads
   nginx:

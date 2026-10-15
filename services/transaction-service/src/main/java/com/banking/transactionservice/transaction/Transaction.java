@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 // Transaction entity — sourceAccountId and targetAccountId stored as plain Long columns.
 // No @ManyToOne join to Account: transaction-service owns this table independently.
 @Entity
-@Table(name = "transactions", indexes = {
+@Table(name = "transactions", schema = "transaction_schema", indexes = {
     @Index(name = "idx_source_account", columnList = "source_account_id"),
     @Index(name = "idx_target_account", columnList = "target_account_id")
 })

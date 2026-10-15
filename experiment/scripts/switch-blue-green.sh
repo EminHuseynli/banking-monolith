@@ -1,18 +1,19 @@
 #!/bin/bash
 # Traffic switch, kept as close as possible to the thesis script
 # (banking-microservice@9929265 scripts/switch-blue-green.sh).
-# Only change: "monolith" is an accepted target (thesis nginx.monolith.conf).
+# Only change: "monolith" (thesis nginx.monolith.conf) and "partial" (C2b) are accepted targets.
 #
-#   ./scripts/switch-blue-green.sh blue       # /api/accounts -> account-service
+#   ./scripts/switch-blue-green.sh blue       # /api/accounts (+ /api/transactions in C2) -> services
 #   ./scripts/switch-blue-green.sh monolith   # rollback
+#   ./scripts/switch-blue-green.sh partial    # C2b: roll back only /api/transactions
 
 set -e
 
 TARGET=$1
 NGINX_CONF="./nginx/nginx.conf"
 
-if [[ "$TARGET" != "blue" && "$TARGET" != "monolith" ]]; then
-    echo "Usage: $0 [blue|monolith]"
+if [[ "$TARGET" != "blue" && "$TARGET" != "monolith" && "$TARGET" != "partial" ]]; then
+    echo "Usage: $0 [blue|monolith|partial]"
     exit 1
 fi
 

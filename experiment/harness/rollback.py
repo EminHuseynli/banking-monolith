@@ -8,8 +8,9 @@ Usage: rollback.py <command> <run-dir>
   wait       wait until monolith, account-service, api-gateway and nginx are healthy
   seed       (via monolith) users, accounts, deposits, a withdrawal and a transfer
   forward    after switching to blue: re-login, read accounts through account-service
-  workload   service era writes: open two accounts, close one
+  workload   service era writes: open two accounts, close one (C2: also move money)
   verify     after rollback: what does the monolith show, and what can users do
+             (C2b: after rolling back only /api/transactions)
   signals    health, Prometheus targets and HTTP status metrics after the window
   summarize  build <run>/summary.json from state + files written by run.sh
   aggregate  <results-dir>: build results/summary.md from all summary.json files
@@ -98,6 +99,33 @@ def find(view_user, account_id):
     return next((a for a in view_user["accounts"] if a["id"] == account_id), None)
 
 
+def condition(run):
+    """C0, C1a, C1b, C2a, C2b: the name of the run directory's parent."""
+    return os.path.basename(os.path.dirname(run.dir.rstrip("/")))
+
+
+def history_ids(run, account_id, token):
+    status, resp = run.http("GET", f"/api/transactions/{account_id}/history", token=token)
+    return status, sorted(t["id"] for t in resp) if status == 200 and isinstance(resp, list) else []
+
+
+def notification_count(run, token):
+    # /api/notifications is never extracted: always answered by the monolith
+    status, resp = run.http("GET", "/api/notifications", token=token)
+    return len(resp) if status == 200 and isinstance(resp, list) else None
+
+
+def balance_diffs(view_a, view_b, users):
+    """Accounts present in both views whose balance differs, as (user, id, a, b)."""
+    out = []
+    for u in users:
+        for a in view_a[u]["accounts"]:
+            b = find(view_b[u], a["id"])
+            if b is not None and b["balance"] != a["balance"]:
+                out.append({"user": u, "id": a["id"], "a": a["balance"], "b": b["balance"]})
+    return out
+
+
 # --- commands ----------------------------------------------------------------
 
 def cmd_wait(run):
@@ -105,6 +133,8 @@ def cmd_wait(run):
                "account-service": "http://account-service:8082/actuator/health",
                "api-gateway": "http://api-gateway:8080/actuator/health",
                "nginx": BASE + "/actuator/health"}
+    if condition(run).startswith("C2"):
+        targets["transaction-service"] = "http://transaction-service:8083/actuator/health"
     deadline = time.time() + 600
     pending = dict(targets)
     while pending and time.time() < deadline:
@@ -179,12 +209,53 @@ def cmd_workload(run):
     status, resp = run.http("DELETE", f"/api/accounts/{z_id}", token=users["u3"]["token"])
     w["Z"] = {"owner": "u3", "http": status, "id": z_id, **({"closedStatus": resp.get("status")} if isinstance(resp, dict) else {})}
     run.state["workload"] = w
+
+    if condition(run).startswith("C2"):
+        # Money moves through transaction-service -> Feign -> account-service
+        seed = run.state["seed_accounts"]
+        u1c, u2c, u3c = seed["u1"]["CHECKING"]["id"], seed["u2"]["CHECKING"]["id"], seed["u3"]["CHECKING"]["id"]
+        notif_before = {u: notification_count(run, users[u]["token"]) for u in users}
+        m = {}
+        status, resp = run.http("POST", "/api/transactions/deposit", {"accountId": u1c, "amount": 300, "description": "service era"}, token=users["u1"]["token"])
+        m["M1_deposit_u1c_300"] = {"http": status, "id": resp.get("id") if isinstance(resp, dict) else None}
+        status, resp = run.http("POST", "/api/transactions/withdraw", {"accountId": u2c, "amount": 100, "description": "service era"}, token=users["u2"]["token"])
+        m["M2_withdraw_u2c_100"] = {"http": status, "id": resp.get("id") if isinstance(resp, dict) else None}
+        status, resp = run.http("POST", "/api/transactions/transfer", {"sourceAccountId": u1c, "targetAccountId": u3c, "amount": 150, "description": "service era"}, token=users["u1"]["token"])
+        m["M3_transfer_u1c_u3c_150"] = {"http": status, "id": resp.get("id") if isinstance(resp, dict) else None}
+        status, resp = run.http("POST", "/api/transactions/deposit", {"accountId": w["X"].get("id"), "amount": 50, "description": "service era, new account"}, token=users["u1"]["token"])
+        m["M4_deposit_X_50"] = {"http": status, "id": resp.get("id") if isinstance(resp, dict) else None}
+        run.state["money"] = m
+        run.state["service_era_tx_ids"] = sorted(x["id"] for x in m.values() if x["id"] is not None)
+        status, ids = history_ids(run, u1c, users["u1"]["token"])
+        run.state["history_u1c_service"] = {"http": status, "ids": ids}
+        run.state["notifications_delivered_in_service_era"] = sum(
+            (notification_count(run, users[u]["token"]) or 0) - (notif_before[u] or 0) for u in users)
+
     run.state["view_workload"] = run.view()
     run.save()
     print("  workload: " + json.dumps({k: (v.get("accountNumber") or v.get("id"), v["http"]) for k, v in w.items()}))
+    if "money" in run.state:
+        print("  money: " + json.dumps({k: v["http"] for k, v in run.state["money"].items()})
+              + f"; notifications delivered: {run.state['notifications_delivered_in_service_era']}")
+
+
+def service_era_history(run, account_id, token):
+    """Of the service-era transactions on this account, how many does /api/transactions show now?"""
+    seed_ids = set()
+    with open(os.path.join(run.dir, "http.jsonl")) as f:
+        for line in f:
+            e = json.loads(line)
+            if e["phase"] == "seed" and "/api/transactions/" in e["path"] and isinstance(e["response"], dict):
+                seed_ids.add(e["response"].get("id"))
+    era = [i for i in run.state["history_u1c_service"]["ids"] if i not in seed_ids]
+    status, now = history_ids(run, account_id, token)
+    return {"history_status": status, "service_era_tx_on_u1c": len(era),
+            "service_era_tx_visible": len(set(era) & set(now)), "history_ids_now": now}
 
 
 def cmd_verify(run):
+    if condition(run) == "C2b":
+        return cmd_verify_partial(run)
     run.phase = "verify"
     users = run.state["users"]
     w = run.state.get("workload")
@@ -194,10 +265,21 @@ def cmd_verify(run):
     v = {"logins_ok": all(u["login_status"]["verify"] == 200 for u in users.values()),
          "served_by": sorted({x["served_by"] for x in view.values()} - {None})}
 
-    # Seed-era balances unchanged? (no money moved in the service era, so they must be)
+    # Seed-era balances unchanged? (C0/C1: no money moved in the service era, so they must be)
     v["seed_balances_intact"] = all(
         find(view[u], a["id"]) is not None and find(view[u], a["id"])["balance"] == a["balance"]
         for u in users for a in run.state["view_seed"][u]["accounts"])
+
+    c2 = "money" in run.state
+    if c2:
+        seed = run.state["seed_accounts"]
+        u1c, u2c = seed["u1"]["CHECKING"]["id"], seed["u2"]["CHECKING"]["id"]
+        # Balances users saw at the end of the service era vs. what the monolith shows now
+        diffs = balance_diffs(run.state["view_workload"], view, users)
+        v["balances_wrong"] = len(diffs)
+        v["balance_diffs"] = diffs
+        v["money_diff_total"] = round(sum(abs(d["a"] - d["b"]) for d in diffs), 2)
+        v.update(service_era_history(run, u1c, users["u1"]["token"]))
 
     if w:
         x, y, z = w["X"], w["Y"], w["Z"]
@@ -235,6 +317,63 @@ def cmd_verify(run):
         v["deposit_landed_in"] = landed_owner
         v["misdirected_deposit"] = status == 201 and landed_owner not in (None, "u1")
 
+    if c2:
+        # u2 withdrew 100 in the service era; the monolith never saw it. u2 now withdraws
+        # everything the monolith shows: more than the account held at the end of the service era?
+        shown = find(run.view()["u2"], u2c)["balance"]
+        held = find(run.state["view_workload"]["u2"], u2c)["balance"]
+        status, _ = run.http("POST", "/api/transactions/withdraw", {"accountId": u2c, "amount": shown, "description": "verify: withdraw all shown"}, token=users["u2"]["token"])
+        v["withdraw_all_shown"] = {"http": status, "shown": shown, "held_at_end_of_service_era": held}
+        v["overdraw"] = status == 201 and shown > held
+        v["overdraw_amount"] = round(shown - held, 2) if v["overdraw"] else 0
+
+    run.state["verify"] = v
+    run.save()
+    print("  verify: " + json.dumps(v))
+
+
+def cmd_verify_partial(run):
+    """C2b: only /api/transactions is back on the monolith; /api/accounts is still account-service."""
+    run.phase = "verify"
+    users = run.state["users"]
+    w = run.state["workload"]
+    seed = run.state["seed_accounts"]
+    u1c, u2c = seed["u1"]["CHECKING"]["id"], seed["u2"]["CHECKING"]["id"]
+    run.login_all()
+    view = run.view()
+    run.state["view_rollback"] = view
+    v = {"logins_ok": all(u["login_status"]["verify"] == 200 for u in users.values()),
+         "served_by": sorted({x["served_by"] for x in view.values()} - {None})}
+    v["account_view_unchanged"] = balance_diffs(run.state["view_workload"], view, users) == []
+    v.update(service_era_history(run, u1c, users["u1"]["token"]))
+
+    # A deposit through the monolith: does the account view (account-service) see it?
+    before = find(view["u1"], u1c)["balance"]
+    status, _ = run.http("POST", "/api/transactions/deposit", {"accountId": u1c, "amount": 20, "description": "verify: deposit after partial rollback"}, token=users["u1"]["token"])
+    after = find(run.view()["u1"], u1c)["balance"]
+    v["deposit_status"] = status
+    v["deposit_visible_in_account_view"] = after == before + 20
+    v["deposit_lost_from_view"] = status == 201 and after != before + 20
+
+    # X exists only in account_schema: the user sees it but can the monolith pay into it?
+    status, _ = run.http("POST", "/api/transactions/deposit", {"accountId": w["X"].get("id"), "amount": 5, "description": "verify: deposit into service-era account"}, token=users["u1"]["token"])
+    v["X_visible_in_account_view"] = find(view["u1"], w["X"].get("id")) is not None
+    v["deposit_into_X_status"] = status
+
+    # Z is CLOSED in the account view; the monolith still has it ACTIVE
+    z_now = find(view["u3"], w["Z"]["id"])
+    v["Z_status_in_account_view"] = z_now["status"] if z_now else None
+    status, _ = run.http("POST", "/api/transactions/deposit", {"accountId": w["Z"]["id"], "amount": 10, "description": "verify: deposit into closed account"}, token=users["u3"]["token"])
+    v["deposit_into_closed_account_status"] = status
+    v["closed_account_accepts_money"] = status == 201
+
+    # u2 withdraws more than the account view shows
+    shown = find(view["u2"], u2c)["balance"]
+    status, _ = run.http("POST", "/api/transactions/withdraw", {"accountId": u2c, "amount": shown + 50, "description": "verify: withdraw more than shown"}, token=users["u2"]["token"])
+    v["withdraw_more_than_shown"] = {"http": status, "shown": shown, "requested": shown + 50}
+    v["overdraw"] = status == 201
+    v["overdraw_amount"] = 50 if v["overdraw"] else 0
+
     run.state["verify"] = v
     run.save()
     print("  verify: " + json.dumps(v))
@@ -249,6 +388,9 @@ def cmd_signals(run):
     s["gateway_health"] = resp.get("status") if isinstance(resp, dict) else status
     status, resp = run.http("GET", "/actuator/health", base="http://account-service:8082")
     s["account_service_health"] = resp.get("status") if isinstance(resp, dict) else status
+    if condition(run).startswith("C2"):
+        status, resp = run.http("GET", "/actuator/health", base="http://transaction-service:8083")
+        s["transaction_service_health"] = resp.get("status") if isinstance(resp, dict) else status
     status, resp = run.http("GET", "/api/v1/targets", base=PROM)
     s["prometheus_targets"] = [{"job": t["labels"]["job"], "health": t["health"]}
                                for t in resp["data"]["activeTargets"]] if status == 200 else status
@@ -287,6 +429,8 @@ def cmd_summarize(run):
         "switch_to_blue_exit": meta.get("switch_blue_exit"), "rollback_exit": meta.get("switch_monolith_exit"),
         "nginx_routes_after_rollback": meta.get("nginx_after_rollback"),
         "forward_served_by": st.get("forward_served_by"), "forward_consistent": st.get("forward_consistent"),
+        "money": st.get("money"),
+        "notifications_delivered_in_service_era": st.get("notifications_delivered_in_service_era"),
         "verify": v, "signals": st.get("signals"),
         "log_lines_since_rollback": {k: int(val) for k, val in meta.items() if k.startswith(("error_", "warn_"))},
         "db": {k: val for k, val in meta.items() if k.startswith("db_")},
@@ -318,7 +462,8 @@ def cmd_aggregate(results_dir):
 
     head = ["cond", "run", "rollback exit", "health", "prom targets", "ERROR", "WARN",
             "5xx after", "4xx after", "service-era writes visible", "closed acct takes money",
-            "acct no. reused", "misdirected deposit", "rows only in account_schema"]
+            "acct no. reused", "misdirected deposit", "rows only in account_schema",
+            "balances wrong", "service-era tx visible", "overdraw", "notifications delivered"]
     lines = ["# Rollback-loss results", "",
              "Generated by `harness/rollback.py aggregate`. One row per run; details in each run's summary.json.", "",
              "| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
@@ -335,6 +480,12 @@ def cmd_aggregate(results_dir):
             f"{vis}/{tot}" if tot != "–" else "–",
             g(s, "verify", "closed_account_accepts_money"), g(s, "verify", "reused_from"),
             g(s, "verify", "misdirected_deposit"), g(s, "db", "db_rows_only_in_account_schema"),
+            g(s, "db", "db_balance_differs") if s["condition"] == "C2b" else g(s, "verify", "balances_wrong"),
+            (f"{g(s, 'verify', 'service_era_tx_visible')}/{g(s, 'verify', 'service_era_tx_on_u1c')}"
+             if g(s, "verify", "service_era_tx_on_u1c") != "–" else "–"),
+            (f"{g(s, 'verify', 'overdraw')} (+{g(s, 'verify', 'overdraw_amount')})"
+             if g(s, "verify", "overdraw") != "–" else "–"),
+            g(s, "notifications_delivered_in_service_era"),
         ]) + " |")
     out = os.path.join(results_dir, "summary.md")
     with open(out, "w") as f:
